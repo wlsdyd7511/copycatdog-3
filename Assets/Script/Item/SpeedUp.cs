@@ -7,8 +7,8 @@ public class SpeedUp : MonoBehaviour, IItem
     public float speed;
 
 
-    public void Get(GameObject Player)
+    public void Get(Character Player)
     {
-        Player.GetComponent<Character>().moveSpeed += speed;
+        Player.moveSpeed += speed;
     }
 }

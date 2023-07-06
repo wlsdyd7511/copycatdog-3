@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IItem
 {
-    void Get(GameObject Player);
+    void Get(Character Player);
 }
