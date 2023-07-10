@@ -10,5 +10,14 @@ public class SpeedUp : MonoBehaviour, IItem
     public void Get(Character Player)
     {
         Player.moveSpeed += speed;
+        Destroy(this.gameObject);
+    }
+
+    void OnTriggerEnter2D(Collider2D gameobject)
+    {
+        if(gameObject.tag == "Player")
+        {
+            Get(gameObject.GetComponent<Character>());
+        }
     }
 }
