@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-interface IWallBoom:
+public interface IWallBoom
 {
-    void WaterBalloonBoom();
+    public void WaterBalloonBoom();
 
 } 
