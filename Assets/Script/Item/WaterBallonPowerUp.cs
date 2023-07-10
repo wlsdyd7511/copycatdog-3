@@ -2,20 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpeedUp : MonoBehaviour, IItem
+public class WaterBallonPowerUp : MonoBehaviour, IItem
 {
-    public float speed;
-
-
     public void Get(Character Player)
     {
-        Player.moveSpeed += speed;
+        Player.waterBalloonPower++;
         Destroy(this.gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D gameobject)
     {
-        if(gameObject.tag == "Player")
+        if (gameObject.tag == "Player")
         {
             Get(gameObject.GetComponent<Character>());
         }
