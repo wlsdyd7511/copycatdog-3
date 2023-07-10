@@ -5,7 +5,7 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     [SerializeField]
-    private GameObject waterBallonPrefab;
+    private GameObject waterBalloonPrefab;
     public int waterBalloonPower;
     public int waterBalloonMaxCount = 1;
     private int currentWaterBalloons = 0;
