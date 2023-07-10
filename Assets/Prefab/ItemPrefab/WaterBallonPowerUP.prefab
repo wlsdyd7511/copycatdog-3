@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1688279167652150851}
   - component: {fileID: 1176696144249981093}
   - component: {fileID: 3326917485228891634}
-  - component: {fileID: 3233089539720606557}
+  - component: {fileID: 3449056417102936967}
   m_Layer: 0
-  m_Name: SpeedUp
+  m_Name: WaterBallonPowerUP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3233089539720606557
+--- !u!114 &3449056417102936967
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,7 +140,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5326568703679064708}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22149ad74c5c9df4a862ac7f736979ea, type: 3}
+  m_Script: {fileID: 11500000, guid: b42ea9d9d2a8d9344850c1609e69d4e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
