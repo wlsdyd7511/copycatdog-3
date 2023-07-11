@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Character : MonoBehaviour, IWallBoom
 {
@@ -12,8 +13,11 @@ public class Character : MonoBehaviour, IWallBoom
     public float moveSpeed = 5f;
 
     private bool isTrapped = false;
+    private Waterballoon tempWaterBalloon;
+    private Vector3 waterBalloonPos;
 
-    void Update()
+
+    void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.LeftArrow))
         {
@@ -25,24 +29,46 @@ public class Character : MonoBehaviour, IWallBoom
         }
         else if (Input.GetKey(KeyCode.UpArrow))
         {
-            transform.Translate(0, 0, moveSpeed * Time.deltaTime);
+            transform.Translate(0, moveSpeed * Time.deltaTime, 0);
         }
         else if (Input.GetKey(KeyCode.DownArrow))
         {
-            transform.Translate(0, 0, -moveSpeed * Time.deltaTime);
+            transform.Translate(0, -moveSpeed * Time.deltaTime, 0 );
         }
         
-        if (Input.GetKeyDown(KeyCode.Z) && currentWaterBalloons < waterBalloonMaxCount)
-        {
-            SpawnWaterBalloon();
-            currentWaterBalloons++;
-        }
+       
 
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Z) && currentWaterBalloons < waterBalloonMaxCount)
+        {
+            Debug.Log("press");
+            SpawnWaterBalloon();
+            currentWaterBalloons++;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D obj)
+    {
+
+        if (obj.tag == "Attack")
+        {
+            WaterBalloonBoom();
+        }
+    }
+
+
     void SpawnWaterBalloon()
     {
-        Instantiate(waterBalloonPrefab, transform.position, Quaternion.identity);
+
+        waterBalloonPos = new Vector3 (Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), 0);
+        Debug.Log(waterBalloonPos);
+        tempWaterBalloon = Instantiate(waterBalloonPrefab, waterBalloonPos, Quaternion.identity).GetComponent<Waterballoon>();
+        tempWaterBalloon.Power = waterBalloonPower;
+        tempWaterBalloon.Player = this;
+        tempWaterBalloon.Position = new int[2] { (int)waterBalloonPos.x + 7 , 7 - (int)waterBalloonPos.y };
     }
 
     public void WaterBalloonExploded()
@@ -54,6 +80,7 @@ public class Character : MonoBehaviour, IWallBoom
 
     public void WaterBalloonBoom()
     {
+        Debug.Log("맞았다");
         if(!isTrapped)
         {
             isTrapped = true;
