@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : MonoBehaviour, IWallBoom
 {
     [SerializeField]
     private GameObject waterBalloonPrefab;
@@ -10,6 +10,8 @@ public class Character : MonoBehaviour
     public int waterBalloonMaxCount = 1;
     private int currentWaterBalloons = 0;
     public float moveSpeed = 5f;
+
+    private bool isTrapped = false;
 
     void Update()
     {
@@ -48,5 +50,14 @@ public class Character : MonoBehaviour
         currentWaterBalloons--;
     }
 
+
+
+    public void WaterBalloonBoom()
+    {
+        if(!isTrapped)
+        {
+            isTrapped = true;
+        }
+    }
 
 }
