@@ -6,7 +6,6 @@ public class SpeedUp : MonoBehaviour, IItem
 {
     public float speed;
 
-
     public void Get(Character Player)
     {
         Player.moveSpeed += speed;
@@ -19,5 +18,10 @@ public class SpeedUp : MonoBehaviour, IItem
         {
             Get(gameObject.GetComponent<Character>());
         }
+    }
+
+    public void WaterBalloonBoom()
+    {
+        Destroy(this.gameObject);
     }
 }

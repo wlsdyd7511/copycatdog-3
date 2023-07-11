@@ -19,4 +19,9 @@ public class WaterBallonCountUp : MonoBehaviour, IItem
         }
     }
 
+    public void WaterBalloonBoom()
+    {
+        Destroy(this.gameObject);
+    }
+
 }

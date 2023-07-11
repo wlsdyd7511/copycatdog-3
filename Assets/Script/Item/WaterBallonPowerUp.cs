@@ -17,4 +17,9 @@ public class WaterBallonPowerUp : MonoBehaviour, IItem
             Get(gameObject.GetComponent<Character>());
         }
     }
+
+    public void WaterBalloonBoom()
+    {
+        Destroy(this.gameObject);
+    }
 }
