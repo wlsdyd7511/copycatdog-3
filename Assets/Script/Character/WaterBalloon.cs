@@ -33,7 +33,7 @@ public class Waterballoon : MonoBehaviour
                 break;
             else if (map.mapArr[x, y - i] == 2) // 장애물 만났을때 부숴지는 벽
             {
-                Destroy(map.mapObject[x, y - i]);
+                map.mapObject[x, y - i].GetComponent<BreakableWall>().WaterBalloonBoom();
                 map.mapArr[x, y - i] = 0;
                 break;
             }
@@ -51,7 +51,7 @@ public class Waterballoon : MonoBehaviour
                 break;
             else if (map.mapArr[x-i,y] == 2) // 장애물 만났을때 부숴지는 벽
             {
-                Destroy(map.mapObject[x-i,y]);
+                map.mapObject[x - i, y].GetComponent<BreakableWall>().WaterBalloonBoom();
                 map.mapArr[x - i, y] = 0;
                 break;
             }
@@ -69,7 +69,7 @@ public class Waterballoon : MonoBehaviour
                 break;
             else if (map.mapArr[x + i, y] == 2) // 장애물 만났을때 부숴지는 벽
             {
-                Destroy(map.mapObject[x + i, y]);
+                map.mapObject[x + i, y].GetComponent<BreakableWall>().WaterBalloonBoom();
                 map.mapArr[x + i, y] = 0;
                 break;
             }
@@ -87,7 +87,7 @@ public class Waterballoon : MonoBehaviour
                 break;
             else if (map.mapArr[x, y + i] == 2) // 장애물 만났을때 부숴지는 벽
             {
-                Destroy(map.mapObject[x, y + i]);
+                map.mapObject[x, y + i].GetComponent<BreakableWall>().WaterBalloonBoom();
                 map.mapArr[x, y + i] = 0;
                 break;
             }
@@ -100,7 +100,7 @@ public class Waterballoon : MonoBehaviour
         temapWallPos = new Vector3(-7 + y, 7 - x);
         Instantiate(waterBalloonEffect, temapWallPos, Quaternion.identity);
         Player.WaterBalloonExploded();
-        Debug.Log("물풍선이 터졌습니다!"); // 맵 구현 후, 터지는 범위까지 구현
+       // Debug.Log("물풍선이 터졌습니다!"); // 맵 구현 후, 터지는 범위까지 구현
         Destroy(this.gameObject);
     }
 }

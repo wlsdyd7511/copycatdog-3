@@ -44,7 +44,7 @@ public class Character : MonoBehaviour, IWallBoom
     {
         if (Input.GetKeyDown(KeyCode.Z) && currentWaterBalloons < waterBalloonMaxCount)
         {
-            Debug.Log("press");
+          //  Debug.Log("press");
             SpawnWaterBalloon();
             currentWaterBalloons++;
         }
@@ -64,7 +64,7 @@ public class Character : MonoBehaviour, IWallBoom
     {
 
         waterBalloonPos = new Vector3 (Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), 0);
-        Debug.Log(waterBalloonPos);
+     //   Debug.Log(waterBalloonPos);
         tempWaterBalloon = Instantiate(waterBalloonPrefab, waterBalloonPos, Quaternion.identity).GetComponent<Waterballoon>();
         tempWaterBalloon.Power = waterBalloonPower;
         tempWaterBalloon.Player = this;
