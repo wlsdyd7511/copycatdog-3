@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BreakableWall : MonoBehaviour, IWallBoom
 {
+    public GameObject[] itemArr;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -18,8 +20,13 @@ public class BreakableWall : MonoBehaviour, IWallBoom
 
     public void WaterBalloonBoom()
     {
-        //맵 2차원 배열 구현후 수정
-        //아이템생성
+        //item 소환확률 30%
+        float temp = Random.Range(0f, 1f);
+        if (temp <= 0.5f)
+        {
+            int tempItemNum = Random.Range(0, itemArr.Length);
+            GameObject temp2 = Instantiate(itemArr[tempItemNum], gameObject.transform.position, Quaternion.identity);
+        }
         Destroy(this.gameObject);
     }
 }

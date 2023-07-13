@@ -11,12 +11,21 @@ public class WaterBallonCountUp : MonoBehaviour, IItem
         Destroy(this.gameObject);
     }
 
-    void OnTriggerEnter2D(Collider2D gameobject)
+    void OnTriggerEnter2D(Collider2D obj)
     {
-        if (gameObject.tag == "Player")
+        if (obj.tag == "Player")
         {
-            Get(gameObject.GetComponent<Character>());
+            Get(obj.GetComponent<Character>());
         }
+        else if (obj.tag == "Attack")
+        {
+            WaterBalloonBoom();
+        }
+    }
+
+    public void WaterBalloonBoom()
+    {
+        Destroy(this.gameObject);
     }
 
 }
