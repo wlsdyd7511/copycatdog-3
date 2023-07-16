@@ -17,6 +17,10 @@ public class Character : MonoBehaviour, IWallBoom
     private Vector3 waterBalloonPos;
 
 
+    int countNeedleItem = 0;//바늘 아이템 개수
+    public bool isShieldItem = false;//방패 아이템 유무 여부
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -67,6 +71,18 @@ public class Character : MonoBehaviour, IWallBoom
     public void WaterBalloonExploded()
     {
         currentWaterBalloons--;
+    }
+
+    //캐릭터가 바늘 아이템 획득하는 함수
+    public void EquipNeedleItem()
+    {
+        countNeedleItem++;
+    }
+
+    //캐릭터에 방패 아이템 효과 적용 함수
+    public void ApplyShieldItemEffects()
+    {
+        isShieldItem = true;
     }
 
 
