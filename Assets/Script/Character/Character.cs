@@ -16,11 +16,15 @@ public class Character : MonoBehaviour, IWallBoom
     private bool isTrapped = false;
     private Waterballoon tempWaterBalloon;
     private Vector3 waterBalloonPos;
+
     public bool isTurtleItem = false; //캐릭터의 거북이 아이템 유무 여부
-
-
     int countNeedleItem = 0;//바늘 아이템 개수
     public bool isShieldItem = false;//방패 아이템 유무 여부
+
+    //WaterBalloonBoom 함수와 관련된 변수들
+    private float needleItemDelay = 5f;
+    private float deathDelay = 10f;
+    private float timer = 0f;
 
 
     void Start()
@@ -107,24 +111,46 @@ public class Character : MonoBehaviour, IWallBoom
     public void WaterBalloonBoom()
     {
         Debug.Log("맞았다");
+
         if (!isTrapped)
         {
-            isTrapped = true;
-        }
+            //거북이를 탄 경우
+            if (isTurtleItem)
+            {
+                isTurtleItem = false;
+            }
 
-        //거북이를 탄 경우
-        if (isTurtleItem)
-        {
+            //방패 아이템이 있는 경우
+            else if (isShieldItem)
+            {
 
-        }
+                isShieldItem = false;
+            }
 
-        //바늘 아이템을 가진 경우
+            //그 외의 경우에는 물풍선에 갇힘
+            else
+            {
+                isTrapped = true;
+                timer += Time.deltaTime;
 
-        else
-        {
-            //캐릭터 삭제
-            //질문: 일정 시간이 경과후 캐릭터가 삭제되도록 할까요??
-            Destroy(this.gameObject);
+                //바늘 아이템이 있는 경우
+                if (countNeedleItem > 0 && timer >= needleItemDelay)
+                {
+                    Debug.Log("바늘 아이템을 이용해 물풍선 탈출!");
+
+                    //물풍선을 탈출함
+                    isTrapped = false;
+                    countNeedleItem--;
+                    timer = 0f;
+                }
+
+                //바늘 아이템이 없는 경우
+                else if (countNeedleItem <= 0 && timer >= deathDelay)
+                {
+                    Debug.Log("GameOver");
+                }
+            }
+
         }
 
     }

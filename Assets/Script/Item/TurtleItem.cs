@@ -28,23 +28,12 @@ public class TurtleItem : MonoBehaviour,IItem
     public void Get(Character Player)
     {
         Player.ApplyTurtleItemEffects(speed);
-    }   
+        Destroy(this.gameObject);
+    }
 
-    //거북이 아이템이 사라지는 경우
-    public void Defend(Character Player)
+    //물풍선에 맞아서 사라지는 방패 아이템
+    public void WaterBalloonBoom()
     {
-        while (isDefending)
-        {
-            //캐릭터가 물풍선에 맞았을 때
-            if (Player.WaterBalloonHit)
-            {
-               //1회 방어 기능
-                Player.WaterBalloonHit = false;
-                isDefending = false;
-                
-            }
-        }
-
         Destroy(this.gameObject);
     }
 
