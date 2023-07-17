@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -15,6 +16,7 @@ public class Character : MonoBehaviour, IWallBoom
     private bool isTrapped = false;
     private Waterballoon tempWaterBalloon;
     private Vector3 waterBalloonPos;
+    public bool isTurtleItem = false; //캐릭터의 거북이 아이템 유무 여부
 
 
     int countNeedleItem = 0;//바늘 아이템 개수
@@ -85,7 +87,22 @@ public class Character : MonoBehaviour, IWallBoom
         isShieldItem = true;
     }
 
+    //캐릭터에 거북이 아이템 효과 적용 함수
+    public void ApplyTurtleItemEffects(TurtleSpeed speed)
+    {
+        isTurtleItem = true;
 
+        if (speed == TurtleSpeed.Fast)
+        {
+            // 빠른 거북이 아이템의 효과를 적용
+        }
+        else
+        {
+            // 느린 거북이 아이템의 효과를 적용
+        }
+    }
+
+    //캐릭터가 물풍선에 맞은 경우를 구현한 함수
 
     public void WaterBalloonBoom()
     {
@@ -94,6 +111,22 @@ public class Character : MonoBehaviour, IWallBoom
         {
             isTrapped = true;
         }
+
+        //거북이를 탄 경우
+        if (isTurtleItem)
+        {
+
+        }
+
+        //바늘 아이템을 가진 경우
+
+        else
+        {
+            //캐릭터 삭제
+            //질문: 일정 시간이 경과후 캐릭터가 삭제되도록 할까요??
+            Destroy(this.gameObject);
+        }
+
     }
 
 }
