@@ -27,7 +27,7 @@ public class TurtleItem : MonoBehaviour,IItem
     //캐릭터가 거북이 아이템을 획득한 경우
     public void Get(Character Player)
     {
-        Player.ApplyTurtleItemEffects(speed);
+        Player.GetTurtleItem();
         Destroy(this.gameObject);
     }
 

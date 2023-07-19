@@ -26,6 +26,10 @@ public class Character : MonoBehaviour, IWallBoom
     private float deathDelay = 10f;
     private float timer = 0f;
 
+    // 아이템 프리팹
+    public GameObject turtleItemPrefab;
+
+
 
     void Start()
     {
@@ -79,6 +83,13 @@ public class Character : MonoBehaviour, IWallBoom
         currentWaterBalloons--;
     }
 
+    // 아이템 획득시 호출될 함수
+    public void GetItem(IItem item)
+    {
+        // 캐릭터가 아이템을 획득한 경우, 해당 아이템의 효과 적용
+        item.Get(this);
+    }
+
     //캐릭터가 바늘 아이템 획득하는 함수
     public void EquipNeedleItem()
     {
@@ -91,18 +102,24 @@ public class Character : MonoBehaviour, IWallBoom
         isShieldItem = true;
     }
 
-    //캐릭터에 거북이 아이템 효과 적용 함수
-    public void ApplyTurtleItemEffects(TurtleSpeed speed)
-    {
-        isTurtleItem = true;
 
-        if (speed == TurtleSpeed.Fast)
+    // 거북이 아이템 획득 함수
+    public void GetTurtleItem()
+    {
+        // 거북이 아이템 프리팹 생성
+        GameObject turtleItem = Instantiate(turtleItemPrefab, transform.position, Quaternion.identity);
+
+        // 플레이어에게 거북이 아이템을 획득시킴
+        IItem item = turtleItem.GetComponent<IItem>();
+        if (item != null)
         {
-            // 빠른 거북이 아이템의 효과를 적용
+            // 아이템을 획득하면 isTurtleItem 값을 true로 설정
+            isTurtleItem = true;
+            item.Get(this);
         }
         else
         {
-            // 느린 거북이 아이템의 효과를 적용
+            Debug.LogWarning("TurtleItem script is missing on the turtle item prefab!");
         }
     }
 
