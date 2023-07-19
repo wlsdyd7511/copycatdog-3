@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -15,32 +17,74 @@ public class Character : MonoBehaviour, IWallBoom
     private bool isTrapped = false;
     private Waterballoon tempWaterBalloon;
     private Vector3 waterBalloonPos;
-
+    private Vector3 moveDirect;
+    private float preMoveSpeed;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        preMoveSpeed = moveSpeed;
     }
 
     void FixedUpdate()
     {
-        float moveX = Input.GetAxis("Horizontal");
-        float moveY = Input.GetAxis("Vertical");
-
-        Vector2 movement = new Vector2(moveX, moveY).normalized; //대각선 벡터 제한
-
-        rb.velocity = movement * moveSpeed;
-
+        transform.Translate(moveDirect * Time.deltaTime);
     }
 
     void Update()
     {
+        if(preMoveSpeed != moveSpeed)
+        {
+            moveDirect = moveDirect.normalized * moveSpeed;
+        }
+        preMoveSpeed = moveSpeed;
+
         if (Input.GetKeyDown(KeyCode.Z) && currentWaterBalloons < waterBalloonMaxCount)
         {
             //  Debug.Log("press");
             SpawnWaterBalloon();
             currentWaterBalloons++;
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            moveDirect = Vector3.left * moveSpeed;
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            moveDirect = Vector3.right * moveSpeed;
+        }
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            moveDirect = Vector3.up * moveSpeed;
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            moveDirect = Vector3.down * moveSpeed;
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftArrow) && moveDirect == Vector3.left * moveSpeed)
+        {
+            moveDirect = Vector3.zero;
+            KeyPushCheck();
+        }
+        else if (Input.GetKeyUp(KeyCode.RightArrow) && moveDirect == Vector3.right * moveSpeed)
+        {
+            moveDirect = Vector3.zero;
+            KeyPushCheck();
+        }
+        else if (Input.GetKeyUp(KeyCode.UpArrow) && moveDirect == Vector3.up * moveSpeed)
+        {
+            moveDirect = Vector3.zero;
+            KeyPushCheck();
+        }
+        else if (Input.GetKeyUp(KeyCode.DownArrow) && moveDirect == Vector3.down * moveSpeed)
+        {
+            moveDirect = Vector3.zero;
+            KeyPushCheck();
+        }
+
+        
     }
 
     void OnTriggerEnter2D(Collider2D obj)
@@ -77,6 +121,26 @@ public class Character : MonoBehaviour, IWallBoom
         if (!isTrapped)
         {
             isTrapped = true;
+        }
+    }
+
+    public void KeyPushCheck()
+    {
+        if(Input.GetKey(KeyCode.LeftArrow))
+        {
+            moveDirect = Vector3.left * moveSpeed;
+        }
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            moveDirect = Vector3.right * moveSpeed;
+        }
+        else if (Input.GetKey(KeyCode.UpArrow))
+        {
+            moveDirect = Vector3.up * moveSpeed;
+        }
+        else if (Input.GetKey(KeyCode.DownArrow))
+        {
+            moveDirect = Vector3.down * moveSpeed;
         }
     }
 
