@@ -7,6 +7,7 @@ public class Waterballoon : MonoBehaviour
     public Map map;
     private Vector3 temapWallPos;
     public GameObject waterBalloonEffect;
+    public GameObject waterBalloonBlock;
     public Character Player;
 
     private void Start()// 물풍선 생성
@@ -100,8 +101,27 @@ public class Waterballoon : MonoBehaviour
         temapWallPos = new Vector3(-7 + y, 7 - x);
         Instantiate(waterBalloonEffect, temapWallPos, Quaternion.identity);
         Player.WaterBalloonExploded();
-       // Debug.Log("물풍선이 터졌습니다!"); // 맵 구현 후, 터지는 범위까지 구현
+        // 맵 구현 후, 터지는 범위까지 구현
         Destroy(this.gameObject);
     }
+
+    void OnTriggerEnter2D(Collider2D obj)
+    {
+
+        if (obj.tag == "Attack")
+        {
+            Explode();
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D obj)
+    {
+
+        if (obj.tag == "Player")
+        {
+            waterBalloonBlock.SetActive(true);
+        }
+    }
+
 }
 
