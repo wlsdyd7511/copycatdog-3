@@ -9,8 +9,9 @@ public class Waterballoon : MonoBehaviour
     public GameObject waterBalloonEffect;
     public GameObject waterBalloonBlock;
     public Character Player;
+    private bool isExplode = false;
 
-    private void Start()// 물풍선 생성
+    void Start()// 물풍선 생성
     {
         map = GameObject.FindGameObjectWithTag("Manager").GetComponent<Map>();
         StartCoroutine(ExplodeAfterDelay(5f));
@@ -24,6 +25,7 @@ public class Waterballoon : MonoBehaviour
 
     private void Explode()
     {
+        isExplode = true;
         int x = Position[1];
         int y = Position[0];
         for (int i = 1; i <= Power; i++)
@@ -101,6 +103,7 @@ public class Waterballoon : MonoBehaviour
         temapWallPos = new Vector3(-7 + y, 7 - x);
         Instantiate(waterBalloonEffect, temapWallPos, Quaternion.identity);
         Player.WaterBalloonExploded();
+        map.mapArr[Position[0], Position[1]] = 0;
         // 맵 구현 후, 터지는 범위까지 구현
         Destroy(this.gameObject);
     }
@@ -108,8 +111,9 @@ public class Waterballoon : MonoBehaviour
     void OnTriggerEnter2D(Collider2D obj)
     {
 
-        if (obj.tag == "Attack")
+        if (obj.tag == "Attack" && !isExplode)
         {
+            this.gameObject.GetComponent<CircleCollider2D>().enabled = false;
             Explode();
         }
     }
