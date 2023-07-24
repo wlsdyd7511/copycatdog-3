@@ -10,6 +10,22 @@ public class Map : MonoBehaviour
     public int[,] mapArr; // 0 = 빈공간, 1 = 부숴지지 않는벽, 2 = 부숴지는벽, 3 = 물풍선
     private List<string> mapList = new List<string>();
     Vector3 wallPos;
+
+    private static Map instance = null;
+
+    void Awake()
+    {
+        if (null == instance)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     void Start()
     {
         DirectoryInfo di = new DirectoryInfo(Application.dataPath + "/Map");
