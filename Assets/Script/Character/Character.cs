@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
@@ -17,18 +18,25 @@ public class Character : MonoBehaviour, IWallBoom
     private Waterballoon tempWaterBalloon;
     private Vector3 waterBalloonPos;
 
-    public bool isTurtleItem = false; //캐릭터의 거북이 아이템 유무 여부
+    //아이템 유무와 관련된 변수들    
     int countNeedleItem = 0;//바늘 아이템 개수
     public bool isShieldItem = false;//방패 아이템 유무 여부
+    public bool isTurtleItem = false; //거북이 아이템 유무 여부
+    public bool isUfoItem = false; //Ufo 아이템 유무 여부
+    public bool isOwlItem = false; //부엉이 아이템 유무 여부
+
+    //바늘 아이템 사용 여부와 관련된 변수
+    public bool canEscape = false;
+
+    //방패 보호 상태와 관련된 변수들
+    private bool isShieldProtected = false;
+    private float shieldProtectionTime = 5f;
+    private float shieldProtectionTimer = 0f;
 
     //WaterBalloonBoom 함수와 관련된 변수들
     private float needleItemDelay = 5f;
     private float deathDelay = 10f;
     private float timer = 0f;
-
-    // 아이템 프리팹
-    public GameObject turtleItemPrefab;
-
 
 
     void Start()
@@ -54,6 +62,11 @@ public class Character : MonoBehaviour, IWallBoom
             //  Debug.Log("press");
             SpawnWaterBalloon();
             currentWaterBalloons++;
+        }
+
+        if (Input.GetKeyDown(KeyCode.X) && countNeedleItem > 0)
+        {
+            UseNeedleItem();
         }
     }
 
@@ -83,44 +96,57 @@ public class Character : MonoBehaviour, IWallBoom
         currentWaterBalloons--;
     }
 
-    // 아이템 획득시 호출될 함수
-    public void GetItem(IItem item)
-    {
-        // 캐릭터가 아이템을 획득한 경우, 해당 아이템의 효과 적용
-        item.Get(this);
-    }
 
     //캐릭터가 바늘 아이템 획득하는 함수
     public void EquipNeedleItem()
     {
         countNeedleItem++;
+
+    }
+
+    //바늘 아이템 사용하는 함수
+    void UseNeedleItem()
+    {
+        countNeedleItem--;
+        canEscape = true;
     }
 
     //캐릭터에 방패 아이템 효과 적용 함수
     public void ApplyShieldItemEffects()
     {
         isShieldItem = true;
+
     }
 
 
-    // 거북이 아이템 획득 함수
-    public void GetTurtleItem()
+    //캐릭터에 거북이 아이템 효과 적용 함수
+    public void ApplyTurtleItemEffects(TurtleSpeed speed)
     {
-        // 거북이 아이템 프리팹 생성
-        GameObject turtleItem = Instantiate(turtleItemPrefab, transform.position, Quaternion.identity);
 
-        // 플레이어에게 거북이 아이템을 획득시킴
-        IItem item = turtleItem.GetComponent<IItem>();
-        if (item != null)
+        isTurtleItem = true;
+
+        if (speed == TurtleSpeed.Fast)
         {
-            // 아이템을 획득하면 isTurtleItem 값을 true로 설정
-            isTurtleItem = true;
-            item.Get(this);
+            // 빠른 거북이 아이템의 효과를 적용
         }
         else
         {
-            Debug.LogWarning("TurtleItem script is missing on the turtle item prefab!");
+            // 느린 거북이 아이템의 효과를 적용
         }
+
+    }
+
+    //캐릭터에 Ufo 아이템 효과 적용 함수
+    public void ApplyUfoItemEffects()
+    {
+        isUfoItem = true;
+
+    }
+
+    //캐릭터에 부엉이 아이템 효과 적용 함수
+    public void ApplyOwlItemEffects()
+    {
+        isOwlItem = true;
     }
 
     //캐릭터가 물풍선에 맞은 경우를 구현한 함수
@@ -129,46 +155,56 @@ public class Character : MonoBehaviour, IWallBoom
     {
         Debug.Log("맞았다");
 
-        if (!isTrapped)
+
+        //거북이를 탄 경우
+        if (isTurtleItem)
         {
-            //거북이를 탄 경우
-            if (isTurtleItem)
+            isTurtleItem = false;
+        }
+
+        //방패 아이템이 있는 경우
+        else if (isShieldItem)
+        {
+            //방패를 보호 상태로 변경하고 타이머 시작
+            isShieldProtected = true;
+            shieldProtectionTimer = 0f;
+
+            //5초가 지나면 보호 상태가 아님
+            shieldProtectionTimer += Time.deltaTime;
+            if (shieldProtectionTimer >= shieldProtectionTime)
             {
-                isTurtleItem = false;
+                isShieldProtected = false;
             }
 
-            //방패 아이템이 있는 경우
-            else if (isShieldItem)
-            {
+            //방패 아이템 삭제
+            isShieldItem = false;
+        }
 
-                isShieldItem = false;
+        //그 외의 경우에는 물풍선에 갇힘
+        else
+        {
+            isTrapped = true;
+            timer += Time.deltaTime;
+
+            //바늘 아이템이 있는 경우
+            if (countNeedleItem > 0 && timer >= needleItemDelay && canEscape)
+            {
+                Debug.Log("바늘 아이템을 이용해 물풍선 탈출!");
+
+                //물풍선을 탈출함
+                isTrapped = false;
+                timer = 0f;
+                canEscape = false;
             }
 
-            //그 외의 경우에는 물풍선에 갇힘
+            //바늘 아이템이 없는 경우
             else
             {
-                isTrapped = true;
-                timer += Time.deltaTime;
-
-                //바늘 아이템이 있는 경우
-                if (countNeedleItem > 0 && timer >= needleItemDelay)
-                {
-                    Debug.Log("바늘 아이템을 이용해 물풍선 탈출!");
-
-                    //물풍선을 탈출함
-                    isTrapped = false;
-                    countNeedleItem--;
-                    timer = 0f;
-                }
-
-                //바늘 아이템이 없는 경우
-                else if (countNeedleItem <= 0 && timer >= deathDelay)
-                {
-                    Debug.Log("GameOver");
-                }
+                Debug.Log("GameOver");
             }
-
         }
+
+
 
     }
 

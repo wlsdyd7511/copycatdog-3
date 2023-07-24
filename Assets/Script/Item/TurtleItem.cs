@@ -27,11 +27,11 @@ public class TurtleItem : MonoBehaviour,IItem
     //캐릭터가 거북이 아이템을 획득한 경우
     public void Get(Character Player)
     {
-        Player.GetTurtleItem();
+        Player.ApplyTurtleItemEffects(speed);
         Destroy(this.gameObject);
     }
 
-    //물풍선에 맞아서 사라지는 방패 아이템
+    //물풍선에 맞아서 사라지는 거북이 아이템
     public void WaterBalloonBoom()
     {
         Destroy(this.gameObject);
