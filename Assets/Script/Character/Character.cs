@@ -11,18 +11,18 @@ public class Character : MonoBehaviour, IWallBoom
     private GameObject waterBalloonPrefab;
     public int waterBalloonPower;
     public int waterBalloonMaxCount = 1;
-    private int currentWaterBalloons = 0;
+    public int currentWaterBalloons = 0;
     public float moveSpeed = 5f;
-    private Rigidbody2D rb;
     private bool isTrapped = false;
     private Waterballoon tempWaterBalloon;
     private Vector3 waterBalloonPos;
     private Vector3 moveDirect;
     private float preMoveSpeed;
+    private Map map;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        map = GameObject.FindGameObjectWithTag("Manager").GetComponent<Map>();
         preMoveSpeed = moveSpeed;
     }
 
@@ -39,9 +39,8 @@ public class Character : MonoBehaviour, IWallBoom
         }
         preMoveSpeed = moveSpeed;
 
-        if (Input.GetKeyDown(KeyCode.Z) && currentWaterBalloons < waterBalloonMaxCount)
+        if (Input.GetKeyDown(KeyCode.Z) && currentWaterBalloons < waterBalloonMaxCount )
         {
-            //  Debug.Log("press");
             SpawnWaterBalloon();
             currentWaterBalloons++;
         }
@@ -101,11 +100,17 @@ public class Character : MonoBehaviour, IWallBoom
     {
 
         waterBalloonPos = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), 0);
+        if(map.mapArr[(int)waterBalloonPos.x + 7, 7 - (int)waterBalloonPos.y] == 3)
+        {
+            currentWaterBalloons--;
+            return;
+        }
         //   Debug.Log(waterBalloonPos);
         tempWaterBalloon = Instantiate(waterBalloonPrefab, waterBalloonPos, Quaternion.identity).GetComponent<Waterballoon>();
         tempWaterBalloon.Power = waterBalloonPower;
         tempWaterBalloon.Player = this;
         tempWaterBalloon.Position = new int[2] { (int)waterBalloonPos.x + 7, 7 - (int)waterBalloonPos.y };
+        map.mapArr[(int)waterBalloonPos.x + 7, 7 - (int)waterBalloonPos.y] = 3;
     }
 
     public void WaterBalloonExploded()
