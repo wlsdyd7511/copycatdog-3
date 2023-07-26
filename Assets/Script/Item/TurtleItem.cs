@@ -10,7 +10,7 @@ public enum TurtleSpeed
     Slow
 }
 
-public class TurtleItem : MonoBehaviour,IItem
+public class TurtleItem : MonoBehaviour, IItem
 {
     private bool isDefending; // 거북이 아이템의 방어 기능
     private TurtleSpeed speed; //거북이 아이템 스피드
@@ -22,13 +22,29 @@ public class TurtleItem : MonoBehaviour,IItem
         int randomValue = Random.Range(0, 10);
 
         return randomValue < 2 ? TurtleSpeed.Fast : TurtleSpeed.Slow;
-    } 
+    }
 
     //캐릭터가 거북이 아이템을 획득한 경우
     public void Get(Character Player)
     {
-        Player.ApplyTurtleItemEffects(speed);
+        Player.ApplyTurtleItemEffects();
         Destroy(this.gameObject);
+    }
+
+    void OnTriggerEnter2D(Collider2D obj)
+    {
+        if (obj.tag == "Player")
+        {
+            Character player = obj.GetComponent<Character>();
+            if (player != null)
+            {
+                Get(player);
+            }
+        }
+        else if (obj.tag == "Attack")
+        {
+            WaterBalloonBoom();
+        }
     }
 
     //물풍선에 맞아서 사라지는 거북이 아이템

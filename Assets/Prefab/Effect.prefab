@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 8745920227142596335}
   - component: {fileID: 3737551621342542284}
   - component: {fileID: 8402109558303911}
-  - component: {fileID: 4933434329017988610}
   - component: {fileID: 7444656565814012961}
+  - component: {fileID: 6980975381372380624}
   m_Layer: 0
-  m_Name: TempEffect
+  m_Name: Effect
   m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0.19517922, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -132,18 +132,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &4933434329017988610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5677625099298432356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb75bfe43d700d4ca1a74ca1fd2e8c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &7444656565814012961
 Rigidbody2D:
   serializedVersion: 4
@@ -171,3 +159,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &6980975381372380624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5677625099298432356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb75bfe43d700d4ca1a74ca1fd2e8c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectSpriteArr:
+  - {fileID: -1839803136, guid: 34ca70cc8815d7b46a67633136cfcb8f, type: 3}
+  - {fileID: 1945015771, guid: 34ca70cc8815d7b46a67633136cfcb8f, type: 3}
+  - {fileID: -28536638, guid: 34ca70cc8815d7b46a67633136cfcb8f, type: 3}
+  - {fileID: -1104228237, guid: 34ca70cc8815d7b46a67633136cfcb8f, type: 3}
+  - {fileID: 819329398, guid: 34ca70cc8815d7b46a67633136cfcb8f, type: 3}
+  thisSpriteRender: {fileID: 3737551621342542284}

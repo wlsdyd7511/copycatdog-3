@@ -12,6 +12,21 @@ public class ShieldItem : MonoBehaviour, IItem
         Destroy(this.gameObject);
 
     }
+    void OnTriggerEnter2D(Collider2D obj)
+    {
+        if (obj.tag == "Player")
+        {
+            Character player = obj.GetComponent<Character>();
+            if (player != null)
+            {
+                Get(player);
+            }
+        }
+        else if (obj.tag == "Attack")
+        {
+            WaterBalloonBoom();
+        }
+    }
 
     //물풍선에 맞아서 사라지는 방패 아이템
     public void WaterBalloonBoom()

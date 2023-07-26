@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -11,12 +12,14 @@ public class Character : MonoBehaviour, IWallBoom
     private GameObject waterBalloonPrefab;
     public int waterBalloonPower;
     public int waterBalloonMaxCount = 1;
-    private int currentWaterBalloons = 0;
+    public int currentWaterBalloons = 0;
     public float moveSpeed = 5f;
-    private Rigidbody2D rb;
     private bool isTrapped = false;
     private Waterballoon tempWaterBalloon;
     private Vector3 waterBalloonPos;
+    private Vector3 moveDirect;
+    private float preMoveSpeed;
+    private Map map;
 
     //아이템 유무와 관련된 변수들    
     int countNeedleItem = 0;//바늘 아이템 개수
@@ -41,27 +44,65 @@ public class Character : MonoBehaviour, IWallBoom
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        map = GameObject.FindGameObjectWithTag("Manager").GetComponent<Map>();
+        preMoveSpeed = moveSpeed;
     }
 
     void FixedUpdate()
     {
-        float moveX = Input.GetAxis("Horizontal");
-        float moveY = Input.GetAxis("Vertical");
-
-        Vector2 movement = new Vector2(moveX, moveY).normalized; //대각선 벡터 제한
-
-        rb.velocity = movement * moveSpeed;
-
+        transform.Translate(moveDirect * Time.deltaTime);
     }
 
     void Update()
     {
+        if (preMoveSpeed != moveSpeed)
+        {
+            moveDirect = moveDirect.normalized * moveSpeed;
+        }
+        preMoveSpeed = moveSpeed;
+
         if (Input.GetKeyDown(KeyCode.Z) && currentWaterBalloons < waterBalloonMaxCount)
         {
-            //  Debug.Log("press");
             SpawnWaterBalloon();
             currentWaterBalloons++;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            moveDirect = Vector3.left * moveSpeed;
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            moveDirect = Vector3.right * moveSpeed;
+        }
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            moveDirect = Vector3.up * moveSpeed;
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            moveDirect = Vector3.down * moveSpeed;
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftArrow) && moveDirect == Vector3.left * moveSpeed)
+        {
+            moveDirect = Vector3.zero;
+            KeyPushCheck();
+        }
+        else if (Input.GetKeyUp(KeyCode.RightArrow) && moveDirect == Vector3.right * moveSpeed)
+        {
+            moveDirect = Vector3.zero;
+            KeyPushCheck();
+        }
+        else if (Input.GetKeyUp(KeyCode.UpArrow) && moveDirect == Vector3.up * moveSpeed)
+        {
+            moveDirect = Vector3.zero;
+            KeyPushCheck();
+        }
+        else if (Input.GetKeyUp(KeyCode.DownArrow) && moveDirect == Vector3.down * moveSpeed)
+        {
+            moveDirect = Vector3.zero;
+            KeyPushCheck();
         }
 
         if (Input.GetKeyDown(KeyCode.X) && countNeedleItem > 0)
@@ -84,11 +125,17 @@ public class Character : MonoBehaviour, IWallBoom
     {
 
         waterBalloonPos = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), 0);
+        if (map.mapArr[(int)waterBalloonPos.x + 7, 7 - (int)waterBalloonPos.y] == 3)
+        {
+            currentWaterBalloons--;
+            return;
+        }
         //   Debug.Log(waterBalloonPos);
         tempWaterBalloon = Instantiate(waterBalloonPrefab, waterBalloonPos, Quaternion.identity).GetComponent<Waterballoon>();
         tempWaterBalloon.Power = waterBalloonPower;
         tempWaterBalloon.Player = this;
         tempWaterBalloon.Position = new int[2] { (int)waterBalloonPos.x + 7, 7 - (int)waterBalloonPos.y };
+        map.mapArr[(int)waterBalloonPos.x + 7, 7 - (int)waterBalloonPos.y] = 3;
     }
 
     public void WaterBalloonExploded()
@@ -120,19 +167,11 @@ public class Character : MonoBehaviour, IWallBoom
 
 
     //캐릭터에 거북이 아이템 효과 적용 함수
-    public void ApplyTurtleItemEffects(TurtleSpeed speed)
+    public void ApplyTurtleItemEffects()
     {
 
         isTurtleItem = true;
 
-        if (speed == TurtleSpeed.Fast)
-        {
-            // 빠른 거북이 아이템의 효과를 적용
-        }
-        else
-        {
-            // 느린 거북이 아이템의 효과를 적용
-        }
 
     }
 
@@ -206,6 +245,26 @@ public class Character : MonoBehaviour, IWallBoom
 
 
 
+    }
+
+    public void KeyPushCheck()
+    {
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            moveDirect = Vector3.left * moveSpeed;
+        }
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            moveDirect = Vector3.right * moveSpeed;
+        }
+        else if (Input.GetKey(KeyCode.UpArrow))
+        {
+            moveDirect = Vector3.up * moveSpeed;
+        }
+        else if (Input.GetKey(KeyCode.DownArrow))
+        {
+            moveDirect = Vector3.down * moveSpeed;
+        }
     }
 
 }

@@ -233,11 +233,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2904621256265511892, guid: 6681994b7f13e5a4bb7e22a0e4640e81, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.21276598
+      value: -0.21276855
       objectReference: {fileID: 0}
     - target: {fileID: 2904621256265511892, guid: 6681994b7f13e5a4bb7e22a0e4640e81, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.19148937
+      value: 0.19148254
       objectReference: {fileID: 0}
     - target: {fileID: 2904621256265511892, guid: 6681994b7f13e5a4bb7e22a0e4640e81, type: 3}
       propertyPath: m_LocalPosition.z
@@ -249,15 +249,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2904621256265511892, guid: 6681994b7f13e5a4bb7e22a0e4640e81, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2904621256265511892, guid: 6681994b7f13e5a4bb7e22a0e4640e81, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2904621256265511892, guid: 6681994b7f13e5a4bb7e22a0e4640e81, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2904621256265511892, guid: 6681994b7f13e5a4bb7e22a0e4640e81, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -275,11 +275,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character
       objectReference: {fileID: 0}
+    - target: {fileID: 3348919213598996388, guid: 6681994b7f13e5a4bb7e22a0e4640e81, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6681994b7f13e5a4bb7e22a0e4640e81, type: 3}
+<<<<<<< HEAD:Assets/Scenes/SampleScene.unity
 --- !u!1 &764753035
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,3 +393,5 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f554a4c47e3fad74583f84e2e2fae055, type: 3}
+=======
+>>>>>>> master:Assets/Scenes/Scene.unity

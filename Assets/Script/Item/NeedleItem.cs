@@ -12,7 +12,21 @@ public class NeedleItem : MonoBehaviour, IItem
         Destroy(this.gameObject);
 
     }
-
+    void OnTriggerEnter2D(Collider2D obj)
+    {
+        if (obj.tag == "Player")
+        {
+            Character player = obj.GetComponent<Character>();
+            if (player != null)
+            {
+                Get(player);
+            }
+        }
+        else if (obj.tag == "Attack")
+        {
+            WaterBalloonBoom();
+        }
+    }
 
     //물풍선이 터져서 바늘 아이템이 사라지는 경우
     public void WaterBalloonBoom()

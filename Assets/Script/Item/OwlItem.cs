@@ -10,6 +10,21 @@ public class OwlItem : MonoBehaviour, IItem
         Player.ApplyOwlItemEffects();
         Destroy(this.gameObject);
     }
+    void OnTriggerEnter2D(Collider2D obj)
+    {
+        if (obj.tag == "Player")
+        {
+            Character player = obj.GetComponent<Character>();
+            if (player != null)
+            {
+                Get(player);
+            }
+        }
+        else if (obj.tag == "Attack")
+        {
+            WaterBalloonBoom();
+        }
+    }
 
     //물풍선에 맞아서 사라지는 부엉이 아이템
     public void WaterBalloonBoom()
