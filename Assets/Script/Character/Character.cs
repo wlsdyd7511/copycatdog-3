@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 
 public class Character : MonoBehaviour, IWallBoom
 {
+    enum Direction { Left, Up, Right, Down }; // 0 = 왼쪽, 1 = 위, 2 = 오른쪽, 3 = 아래,
     [SerializeField]
     private GameObject waterBalloonPrefab;
     public int waterBalloonPower;
@@ -18,11 +19,14 @@ public class Character : MonoBehaviour, IWallBoom
     private Vector3 waterBalloonPos;
     private Vector3 moveDirect;
     private float preMoveSpeed;
-    private Map map;
+    private bool canPush = false;
+    public bool canThrow = false;
+    public bool haveWaterBalloon = false;
+    Direction playerDir = Direction.Left;
 
     void Start()
     {
-        map = GameObject.FindGameObjectWithTag("Manager").GetComponent<Map>();
+
         preMoveSpeed = moveSpeed;
     }
 
@@ -33,33 +37,45 @@ public class Character : MonoBehaviour, IWallBoom
 
     void Update()
     {
-        if(preMoveSpeed != moveSpeed)
+        if (preMoveSpeed != moveSpeed)
         {
             moveDirect = moveDirect.normalized * moveSpeed;
         }
         preMoveSpeed = moveSpeed;
 
-        if (Input.GetKeyDown(KeyCode.Z) && currentWaterBalloons < waterBalloonMaxCount )
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            SpawnWaterBalloon();
-            currentWaterBalloons++;
+            if (haveWaterBalloon)
+            {
+                ThrowWaterBalloon();
+                haveWaterBalloon = false;
+            }
+            else
+            {
+                SpawnWaterBalloon();
+                currentWaterBalloons++;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             moveDirect = Vector3.left * moveSpeed;
+            playerDir = Direction.Left;
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             moveDirect = Vector3.right * moveSpeed;
+            playerDir = Direction.Right;
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             moveDirect = Vector3.up * moveSpeed;
+            playerDir = Direction.Up;
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             moveDirect = Vector3.down * moveSpeed;
+            playerDir = Direction.Down;
         }
 
         if (Input.GetKeyUp(KeyCode.LeftArrow) && moveDirect == Vector3.left * moveSpeed)
@@ -83,7 +99,7 @@ public class Character : MonoBehaviour, IWallBoom
             KeyPushCheck();
         }
 
-        
+
     }
 
     void OnTriggerEnter2D(Collider2D obj)
@@ -100,7 +116,24 @@ public class Character : MonoBehaviour, IWallBoom
     {
 
         waterBalloonPos = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), 0);
-        if(map.mapArr[(int)waterBalloonPos.x + 7, 7 - (int)waterBalloonPos.y] == 3)
+        if (Map.instance.mapArr[7 - (int)waterBalloonPos.y, (int)waterBalloonPos.x + 7] == 3)
+        {
+            if (canThrow)
+            {
+                haveWaterBalloon = true;
+                Destroy(tempWaterBalloon.gameObject);
+                Map.instance.mapArr[7 - (int)waterBalloonPos.y, (int)waterBalloonPos.x + 7] = 0;
+                currentWaterBalloons--;
+                return;
+            }
+            else
+            {
+                currentWaterBalloons--;
+                return;
+            }
+
+        }
+        if (currentWaterBalloons >= waterBalloonMaxCount)
         {
             currentWaterBalloons--;
             return;
@@ -110,7 +143,7 @@ public class Character : MonoBehaviour, IWallBoom
         tempWaterBalloon.Power = waterBalloonPower;
         tempWaterBalloon.Player = this;
         tempWaterBalloon.Position = new int[2] { (int)waterBalloonPos.x + 7, 7 - (int)waterBalloonPos.y };
-        map.mapArr[(int)waterBalloonPos.x + 7, 7 - (int)waterBalloonPos.y] = 3;
+        Map.instance.mapArr[7 - (int)waterBalloonPos.y, (int)waterBalloonPos.x + 7] = 3;
     }
 
     public void WaterBalloonExploded()
@@ -131,22 +164,130 @@ public class Character : MonoBehaviour, IWallBoom
 
     public void KeyPushCheck()
     {
-        if(Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             moveDirect = Vector3.left * moveSpeed;
+            playerDir = Direction.Left;
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
             moveDirect = Vector3.right * moveSpeed;
+            playerDir = Direction.Right;
         }
         else if (Input.GetKey(KeyCode.UpArrow))
         {
             moveDirect = Vector3.up * moveSpeed;
+            playerDir = Direction.Up;
         }
         else if (Input.GetKey(KeyCode.DownArrow))
         {
             moveDirect = Vector3.down * moveSpeed;
+            playerDir = Direction.Down;
         }
+    }
+
+    public void ThrowWaterBalloon()
+    {
+        waterBalloonPos = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), 0);
+        int x = 7 - (int)Mathf.Round(transform.position.y);
+        int y = (int)Mathf.Round(transform.position.x) + 7;
+        if (playerDir == Direction.Left)
+        {
+            for (int i = 7; ; i++)//왼
+            {
+                if (y - i < 0) // 맵 밖 14 = -1
+                {
+                    if (Map.instance.mapArr[x, y - i + 15] == 0)
+                    {
+                        tempWaterBalloon = Instantiate(waterBalloonPrefab, waterBalloonPos, Quaternion.identity).GetComponent<Waterballoon>();
+                        tempWaterBalloon.Move((int)playerDir);
+                        tempWaterBalloon.targetPos = new Vector3(-7 + (y - i + 15), 7 - x);
+                        break;
+                    }
+                }
+                else if (Map.instance.mapArr[x, y - i] == 0) // 장애물을 만남
+                {
+                    
+                    tempWaterBalloon = Instantiate(waterBalloonPrefab, waterBalloonPos, Quaternion.identity).GetComponent<Waterballoon>();
+                    tempWaterBalloon.Move((int)playerDir);
+                    tempWaterBalloon.targetPos = new Vector3(-7 + (y - i), 7 - x);
+                    break;
+                }
+            }
+        }
+        else if (playerDir == Direction.Up)
+        {
+            for (int i = 7; ; i++)//위
+            {
+                if (x - i < 0) // 맵 밖
+                {
+                    if (Map.instance.mapArr[x - i + 15, y] == 0)
+                    {
+                        tempWaterBalloon = Instantiate(waterBalloonPrefab, waterBalloonPos, Quaternion.identity).GetComponent<Waterballoon>();
+                        tempWaterBalloon.Move((int)playerDir);
+                        tempWaterBalloon.targetPos = new Vector3(-7 + y, 7 - (x - i + 15));
+                        break;
+                    }
+                }
+                else if (Map.instance.mapArr[x - i, y] != 0) // 장애물 만났을때 안부숴지는 벽
+                {
+                    tempWaterBalloon = Instantiate(waterBalloonPrefab, waterBalloonPos, Quaternion.identity).GetComponent<Waterballoon>();
+                    tempWaterBalloon.Move((int)playerDir);
+                    tempWaterBalloon.targetPos = new Vector3(-7 + y, 7 - (x - i));
+                    break;
+                }
+            }
+        }
+        else if (playerDir == Direction.Down)
+        {
+            for (int i = 7; ; i++)//아
+            {
+                if (x + i >= 15) // 맵 밖
+                {
+                    if (Map.instance.mapArr[x + i - 15, y] == 0)
+                    {
+                        tempWaterBalloon = Instantiate(waterBalloonPrefab, waterBalloonPos, Quaternion.identity).GetComponent<Waterballoon>();
+                        tempWaterBalloon.Move((int)playerDir);
+                        tempWaterBalloon.targetPos = new Vector3(-7 + y, 7 - (x + i - 15));
+                        break;
+                    }
+                }
+                else if (Map.instance.mapArr[x + i, y] != 0) // 장애물 만났을때 안부숴지는 벽
+                {
+                    tempWaterBalloon = Instantiate(waterBalloonPrefab, waterBalloonPos, Quaternion.identity).GetComponent<Waterballoon>();
+                    tempWaterBalloon.Move((int)playerDir);
+                    tempWaterBalloon.targetPos = new Vector3(-7 + y, 7 - (x + i));
+                    break;
+                }
+            }
+        }
+        else if (playerDir == Direction.Right)
+        {
+            for (int i = 7; ; i++)// 오
+            {
+                if (y + i >= 15) // 맵 밖
+                {
+                    if (Map.instance.mapArr[x, y+i-15] == 0)
+                    {
+                        tempWaterBalloon = Instantiate(waterBalloonPrefab, waterBalloonPos, Quaternion.identity).GetComponent<Waterballoon>();
+                        tempWaterBalloon.Move((int)playerDir);
+                        tempWaterBalloon.targetPos = new Vector3(-7 + (y + i - 15), 7 - x);
+                        break;
+                    }
+                }
+                else if (Map.instance.mapArr[x, y + i] != 0) // 장애물 만났을때 안부숴지는 벽
+                {
+                    tempWaterBalloon = Instantiate(waterBalloonPrefab, waterBalloonPos, Quaternion.identity).GetComponent<Waterballoon>();
+                    tempWaterBalloon.Move((int)playerDir);
+                    tempWaterBalloon.targetPos = new Vector3(-7 + (y + i), 7 - x);
+                    break;
+                }
+            }
+        }
+        tempWaterBalloon.Power = waterBalloonPower;
+        tempWaterBalloon.Player = this;
+        tempWaterBalloon.Position = new int[2] { (int)tempWaterBalloon.targetPos.x + 7, 7 - (int)tempWaterBalloon.targetPos.y };
+        Map.instance.mapArr[7 - (int)tempWaterBalloon.targetPos.y, (int)tempWaterBalloon.targetPos.x + 7] = 3;
     }
 
 }

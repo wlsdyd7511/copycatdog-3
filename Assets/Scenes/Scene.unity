@@ -224,7 +224,15 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 881691278139856383, guid: 6681994b7f13e5a4bb7e22a0e4640e81, type: 3}
+      propertyPath: canThrow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 881691278139856383, guid: 6681994b7f13e5a4bb7e22a0e4640e81, type: 3}
       propertyPath: waterBalloonPower
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 881691278139856383, guid: 6681994b7f13e5a4bb7e22a0e4640e81, type: 3}
+      propertyPath: waterBalloonMaxCount
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2904621256265511892, guid: 6681994b7f13e5a4bb7e22a0e4640e81, type: 3}
@@ -284,3 +292,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6681994b7f13e5a4bb7e22a0e4640e81, type: 3}
+--- !u!1 &1628045536
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1628045537}
+  - component: {fileID: 1628045538}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1628045537
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628045536}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.187952, y: -6.897554, z: -3.5893772}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1628045538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628045536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e7abe044d8ec754aab92575cc6892d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walls:
+  - {fileID: 899093154574229249, guid: 3cc0662dd9bcd424588667c9a6f80abf, type: 3}
+  - {fileID: 615841533290986834, guid: a8cead64961e33d4494081d4d835b2fe, type: 3}
