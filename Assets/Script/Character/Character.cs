@@ -53,7 +53,6 @@ public class Character : MonoBehaviour, IWallBoom
             else
             {
                 SpawnWaterBalloon();
-                currentWaterBalloons++;
             }
         }
 
@@ -123,22 +122,15 @@ public class Character : MonoBehaviour, IWallBoom
                 haveWaterBalloon = true;
                 Destroy(tempWaterBalloon.gameObject);
                 Map.instance.mapArr[7 - (int)waterBalloonPos.y, (int)waterBalloonPos.x + 7] = 0;
-                currentWaterBalloons--;
-                return;
             }
-            else
-            {
-                currentWaterBalloons--;
-                return;
-            }
-
+            return;
         }
         if (currentWaterBalloons >= waterBalloonMaxCount)
         {
-            currentWaterBalloons--;
             return;
         }
         //   Debug.Log(waterBalloonPos);
+        currentWaterBalloons++;
         tempWaterBalloon = Instantiate(waterBalloonPrefab, waterBalloonPos, Quaternion.identity).GetComponent<Waterballoon>();
         tempWaterBalloon.Power = waterBalloonPower;
         tempWaterBalloon.Player = this;
@@ -195,6 +187,7 @@ public class Character : MonoBehaviour, IWallBoom
         {
             for (int i = 7; ; i++)//왼
             {
+                Debug.Log("왼쪽");
                 if (y - i < 0) // 맵 밖 14 = -1
                 {
                     if (Map.instance.mapArr[x, y - i + 15] == 0)
@@ -219,6 +212,7 @@ public class Character : MonoBehaviour, IWallBoom
         {
             for (int i = 7; ; i++)//위
             {
+                Debug.Log("위");
                 if (x - i < 0) // 맵 밖
                 {
                     if (Map.instance.mapArr[x - i + 15, y] == 0)
