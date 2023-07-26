@@ -8,6 +8,6 @@ public class StartGame : MonoBehaviour
 {
     public void StartButton()
     {
-        SceneManager.LoadScene("Main");  //Main 화면으로 전환
+        SceneManager.LoadScene("SettingRoom");  //대기실 화면으로 전환
     }
 }
