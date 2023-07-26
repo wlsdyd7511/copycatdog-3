@@ -11,7 +11,7 @@ public class Map : MonoBehaviour
     private List<string> mapList = new List<string>();
     Vector3 wallPos;
 
-    private static Map instance = null;
+    public static Map instance = null;
 
     void Awake()
     {
