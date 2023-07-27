@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 31
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.6650944, g: 0.9212751, b: 1, a: 1}
   m_FlipX: 0
@@ -100,9 +100,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterBalloonPrefab: {fileID: 993493297496108855, guid: afdbe2b0ce81ed8468fc60f2e51c8a36, type: 3}
-  waterBalloonPower: 0
+  waterBalloonPower: 2
   waterBalloonMaxCount: 1
+  currentWaterBalloons: 0
   moveSpeed: 5
+  canThrow: 0
+  haveWaterBalloon: 0
 --- !u!61 &6873548703926566294
 BoxCollider2D:
   m_ObjectHideFlags: 0
