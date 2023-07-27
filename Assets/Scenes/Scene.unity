@@ -224,6 +224,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 881691278139856383, guid: 6681994b7f13e5a4bb7e22a0e4640e81, type: 3}
+      propertyPath: canPush
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 881691278139856383, guid: 6681994b7f13e5a4bb7e22a0e4640e81, type: 3}
       propertyPath: canThrow
       value: 1
       objectReference: {fileID: 0}

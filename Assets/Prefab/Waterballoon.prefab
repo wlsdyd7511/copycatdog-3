@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4795869153197165219}
   m_Layer: 0
   m_Name: Waterballoon
-  m_TagString: Untagged
+  m_TagString: WaterBalloon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,7 +103,11 @@ MonoBehaviour:
   Position: 0000000000000000
   waterBalloonEffect: {fileID: 5677625099298432356, guid: 6dd1bad3e7f7f9a4781f0e63d829c252, type: 3}
   waterBalloonBlock: {fileID: 4795869153197165219}
+  waterBalloonCollider: {fileID: 0}
   Player: {fileID: 0}
+  moving: 0
+  targetPos: {x: 0, y: 0, z: 0}
+  movingDir: {x: 0, y: 0, z: 0}
 --- !u!58 &7334852572594817784
 CircleCollider2D:
   m_ObjectHideFlags: 0
