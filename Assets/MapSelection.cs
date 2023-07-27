@@ -5,7 +5,7 @@ using UnityEngine;
 public class MapSelection : MonoBehaviour
 {
     public GameObject MapSet;
-    public GameObject SelectButton;
+ 
 
     public void OnSelectMapButtonClicked()
     {
