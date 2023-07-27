@@ -101,12 +101,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterBalloonPrefab: {fileID: 993493297496108855, guid: afdbe2b0ce81ed8468fc60f2e51c8a36, type: 3}
+  frontChecker: {fileID: 1339748218948822339}
   waterBalloonPower: 2
   waterBalloonMaxCount: 1
   currentWaterBalloons: 0
   moveSpeed: 5
+  canPush: 0
   canThrow: 0
   haveWaterBalloon: 0
+  pushTime: 0
 --- !u!61 &6873548703926566294
 BoxCollider2D:
   m_ObjectHideFlags: 0
