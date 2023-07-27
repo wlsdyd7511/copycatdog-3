@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Manager
   - Attack
+  - WaterBalloon
   layers:
   - Default
   - TransparentFX

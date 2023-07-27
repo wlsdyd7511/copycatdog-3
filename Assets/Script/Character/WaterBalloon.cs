@@ -17,11 +17,12 @@ public class Waterballoon : MonoBehaviour
     public Vector3 targetPos;
     public Vector3 movingDir;
     private Vector3 nowPos;
+    private float timer = 0;
 
     void Start()// 물풍선 생성
     {
         StartCoroutine(ExplodeAfterDelay(5f));
-       // Debug.Log(Position[0] + "," + Position[1]);
+        Debug.Log(Position[0] + "," + Position[1]);
         waterBalloonCollider=this.gameObject.gameObject.GetComponent<CircleCollider2D>();
     }
 
@@ -30,6 +31,7 @@ public class Waterballoon : MonoBehaviour
         nowPos = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), 0);
         if (moving)
         {
+            
             waterBalloonBlock.enabled = false;
             waterBalloonCollider.enabled = false;
             transform.Translate(movingDir * Time.deltaTime);
@@ -61,11 +63,14 @@ public class Waterballoon : MonoBehaviour
     private System.Collections.IEnumerator ExplodeAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(timer);
         Explode();
     }
 
-    public void Move(int dir) // 0 = 왼쪽, 1 = 위, 2 = 오른쪽, 3 = 아래,
+    public void Move(int dir, Vector3 tempPos) // 0 = 왼쪽, 1 = 위, 2 = 오른쪽, 3 = 아래,
     {
+        timer += 1;
+        targetPos = tempPos;
         if (dir == 0)
         {
             movingDir = Vector3.left * 10f;
@@ -83,6 +88,8 @@ public class Waterballoon : MonoBehaviour
             movingDir = Vector3.down * 10f;
         }
         moving = true;
+        Position = new int[2] { (int)targetPos.x + 7, 7 - (int)targetPos.y };
+        Map.instance.mapArr[7 - (int)targetPos.y, (int)targetPos.x + 7] = 3;
     }
     private void Explode()
     {
@@ -191,22 +198,6 @@ public class Waterballoon : MonoBehaviour
         if (obj.tag == "Player")
         {
             waterBalloonBlock.enabled = true;
-        }
-    }
-
-    void OnCollisionEnter2D(Collision2D obj)
-    {
-        if (obj.gameObject.tag == "Player")
-        {
-            Debug.Log("push");
-        }
-    }
-
-    void OnCollisionExit2D(Collision2D obj)
-    {
-        if (obj.gameObject.tag == "Player")
-        {
-            Debug.Log("end");
         }
     }
 }
