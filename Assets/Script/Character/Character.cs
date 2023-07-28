@@ -178,13 +178,13 @@ public class Character : MonoBehaviour, IWallBoom
         {
             return;
         }
-        //   Debug.Log(waterBalloonPos);
         currentWaterBalloons++;
         tempWaterBalloon = Instantiate(waterBalloonPrefab, waterBalloonPos, Quaternion.identity).GetComponent<Waterballoon>();
         tempWaterBalloon.Power = waterBalloonPower;
         tempWaterBalloon.Player = this;
         tempWaterBalloon.Position = new int[2] { (int)waterBalloonPos.x + 7, 7 - (int)waterBalloonPos.y };
         Map.instance.mapArr[7 - (int)waterBalloonPos.y, (int)waterBalloonPos.x + 7] = 3;
+        tempWaterBalloon.GetComponent<SpriteRenderer>().sortingOrder = 8 - (int)waterBalloonPos.y;
     }
 
     public void WaterBalloonExploded()
