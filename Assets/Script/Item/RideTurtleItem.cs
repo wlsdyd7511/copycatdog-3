@@ -15,8 +15,12 @@ public class RideTurtleItem : MonoBehaviour, IRideable
         player.ApplyRideableItem(this);
 
 
-        // 라이드터틀아이템을 캐릭터의 자식으로 설정
+        // 거북이 아이템을 캐릭터의 자식으로 설정
         transform.SetParent(player.transform);
+
+        // 거북이 아이템을 아래로 조금 내려갈 위치로 설정
+        Vector3 offset = new Vector3(0f, -0.5f, 0f); // 예시로 아래로 0.5만큼 내려가도록 설정
+        transform.localPosition = offset;
 
     }
 
