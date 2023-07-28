@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b38fe9a98fa6a8e45a4ca2394f48e017
+guid: 1f1b160ad83c7f94586949f0540c3170
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: turtle-right_0
+      name: redturtle-left_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 28e441094fc676345b87069cc9d0a92f
-      internalID: -846694693
+      spriteID: 07e32f4ab8ce70a4682a9a880d516578
+      internalID: 1718627317
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: turtle-right_1
+      name: redturtle-left_1
       rect:
         serializedVersion: 2
         x: 32
@@ -145,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c9bad79c60c06f14aa6b21328602c4de
-      internalID: 1681989568
+      spriteID: d46a0ca55b700d546b21715c426d50c3
+      internalID: 2005103094
       vertices: []
       indices: 
       edges: []
@@ -162,8 +162,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      turtle-right_0: -846694693
-      turtle-right_1: 1681989568
+      redturtle-left_0: 1718627317
+      redturtle-left_1: 2005103094
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

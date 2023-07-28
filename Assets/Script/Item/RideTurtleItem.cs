@@ -7,7 +7,15 @@ using UnityEngine;
 public class RideTurtleItem : MonoBehaviour, IRideable
 {
     private Character rider;
-    public SpriteRenderer turtleSpriteRenderer;
+    private SpriteRenderer turtleSpriteRenderer;
+    [SerializeField]
+    private Sprite[] turtleSprite;
+
+    private void Start()
+    {
+        turtleSpriteRenderer = GetComponent<SpriteRenderer>();      
+    }
+
 
     public void Ride(Character player)
     {
@@ -30,24 +38,7 @@ public class RideTurtleItem : MonoBehaviour, IRideable
             return;
         }
 
-        // 캐릭터의 방향을 확인하여 거북이 스프라이트 방향 설정
-        if (rider.playerDir == Character.Direction.Left)
-        {
-            turtleSpriteRenderer.flipX = false;
-        }
-        else if (rider.playerDir == Character.Direction.Right)
-        {
-            turtleSpriteRenderer.flipX = true;
-        }
-        // 앞, 뒤 방향에 따라 flipY를 설정해 거북이 이미지를 뒤집습니다.
-        else if (rider.playerDir == Character.Direction.Up)
-        {
-            turtleSpriteRenderer.flipY = false;
-        }
-        else if (rider.playerDir == Character.Direction.Down)
-        {
-            turtleSpriteRenderer.flipY = true;
-        }
+        turtleSpriteRenderer.sprite = turtleSprite[(int)rider.playerDir];
     }
 
 }
