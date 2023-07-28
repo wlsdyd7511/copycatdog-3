@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
  
 public class GameMgr : MonoBehaviour
 {
@@ -10,7 +11,46 @@ public class GameMgr : MonoBehaviour
     // 외부에서 접근 가능한 싱글톤 인스턴스
     public static GameMgr Instance
     {
-        get { return instance; }
+        get
+        {
+            if(instance == null)
+            {
+                instance = FindObjectOfType<GameMgr>();
+            }
+            return instance;
+        }
+    }
+
+    //선택한 맵과 모드 설정 변수들
+    private string selectedMap;
+    private string selectedMode;
+
+    //선택한 맵과 모드를 인게임 씬에서 사용할 수 있도록 전달하는 함수
+    public void SetSelectedMapAndMode(string map, string mode)
+    {
+        selectedMap = map;
+        selectedMode = mode;
+    }
+
+    //선택한 맵과 모드에 따른 인게임 씬 로드
+    public void LoadInGame()
+    {
+        string InGameName = DetermineInGameName(selectedMap, selectedMode);
+
+        if(!string.IsNullOrEmpty(InGameName))
+        {
+            SceneManager.LoadScene(InGameName);
+        }
+        else
+        {
+            Debug.LogError("Could not determine the In-game to load.");
+        }
+    }
+
+    private string DetermineInGameName(string map, string mode)
+    {
+        string InGameName = map + "_" + mode + "_Scene";
+        return InGameName;
     }
 
     private void Awake()
