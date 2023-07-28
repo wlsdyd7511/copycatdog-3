@@ -187,7 +187,8 @@ public class Waterballoon : MonoBehaviour
 
         if (obj.tag == "Attack" && !isExplode)
         {
-            this.gameObject.GetComponent<CircleCollider2D>().enabled = false;
+            waterBalloonCollider.enabled = false;
+            waterBalloonBlock.enabled = false;
             Explode();
         }
     }
