@@ -52,8 +52,8 @@ public class Character : MonoBehaviour, IWallBoom
     private float shieldProtectionTime = 5f;
     private float shieldProtectionTimer = 0f;
 
-    //WaterBalloonBoom 함수와 관련된 변수들
-    private float timer = 0f;
+    //캐릭터가 물풍선에 갇혀있는시간
+    public float timer = 0f;
 
     //탑승 아이템 관련 변수들
     public bool isRidingItem = false;
@@ -178,8 +178,16 @@ public class Character : MonoBehaviour, IWallBoom
         
         if (obj.tag == "Attack")
         {
-            Debug.Log("attack");
             WaterBalloonBoom();
+        }
+        else if(obj.tag == "PlayerAttack")
+        {
+            Character enemy = obj.GetComponentInParent<Character>();
+            if (enemy.isTrapped)
+            {
+                Debug.Log("player hit");
+                enemy.timer += 10;
+            }
         }
     }
 
