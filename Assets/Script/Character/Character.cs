@@ -265,9 +265,10 @@ public class Character : MonoBehaviour, IWallBoom
     //캐릭터에 거북이 아이템 효과 적용 함수
     public void ApplyTurtleItemEffects(TurtleSpeed speed)
     {
-
+        //터틀 아이템 유무 여부
         isTurtleItem = true;
 
+        //터틀 아이템 속도 지정
         if (speed == TurtleSpeed.Fast)
         {
             ridingSpeed = 9f;
@@ -277,6 +278,7 @@ public class Character : MonoBehaviour, IWallBoom
         {
             ridingSpeed = 1f;
         }
+
     }
 
     //캐릭터에 Ufo 아이템 효과 적용 함수

@@ -36,6 +36,11 @@ public class TurtleItem : MonoBehaviour, IItem
     public void Get(Character Player)
     {
         Player.ApplyTurtleItemEffects(speed);
+
+        //탑승 처리
+        RideTurtleItem rideTurtleItem = new RideTurtleItem();
+        rideTurtleItem.Ride(Player);
+        
         Destroy(this.gameObject);
     }
 

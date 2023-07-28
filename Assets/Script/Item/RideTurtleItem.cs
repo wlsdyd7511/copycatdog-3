@@ -5,20 +5,18 @@ using UnityEngine;
 
 public class RideTurtleItem : MonoBehaviour, IRideable
 {
-    public void Ride(Character player)
+    private GameObject rideablePrefab;
+
+    public RideTurtleItem()
     {
-        // 캐릭터를 탑승 아이템의 위치로 이동시킴
-        player.transform.position = transform.position;
-        // 캐릭터를 탑승 아이템의 자식 오브젝트로 설정하여 아이템의 움직임에 따라 함께 움직이도록 함
-        player.transform.parent = transform;
-        // 캐릭터의 탑승 상태 변수를 true로 설정
-        player.isRidingItem = true;
+        // 탑승 아이템 프리팹을 로드
+        rideablePrefab = Resources.Load<GameObject>("Prefab/ItemPrefab/RideTurtleItem");
     }
 
-    public void Get(Character player)
+    public void Ride(Character player)
     {
-        Ride(player);
-
+        // 캐릭터를 탑승 처리하고, 캐릭터 속도를 조정
+        player.ApplyRideableItem(this);
     }
 
     public GameObject GetRideablePrefab()
