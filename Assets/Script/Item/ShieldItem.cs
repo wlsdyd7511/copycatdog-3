@@ -8,7 +8,7 @@ public class ShieldItem : MonoBehaviour, IItem
     //방패 아이템을 캐릭터에게 적용하는 함수
     public void Get(Character Player)
     {
-        Player.ApplyShieldItemEffects();
+        Player.EquipShieldItem();
         Destroy(this.gameObject);
 
     }
