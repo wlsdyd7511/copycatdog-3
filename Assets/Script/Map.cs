@@ -68,7 +68,7 @@ public class Map : MonoBehaviour
                 }
                 else if (mapArr[i, j] >= 4)
                 {
-                    Instantiate(players[mapArr[i, j] - 4], wallPos, Quaternion.identity);
+                    Instantiate(players[mapArr[i, j] - 4], new Vector3(wallPos.x, wallPos.y, -2), Quaternion.identity);
                     mapArr[i, j] = 0;
                 }
                 if (groundSpriteArr[i, j] != 0)

@@ -234,7 +234,10 @@ public class Character : MonoBehaviour, IWallBoom
 
     void SpawnWaterBalloon()
     {
-
+        if (isTrapped)
+        {
+            return;
+        }
         waterBalloonPos = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), 0);
         if (Map.instance.mapArr[7 - (int)waterBalloonPos.y, (int)waterBalloonPos.x + 7] == 3)
         {

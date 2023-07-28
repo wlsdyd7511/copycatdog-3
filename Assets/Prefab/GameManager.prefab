@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8805263234105258799
 MonoBehaviour:
@@ -48,6 +48,9 @@ MonoBehaviour:
   - {fileID: 5423959231596519683, guid: 6591fab33bbd28347a7c06b4a918a493, type: 3}
   - {fileID: 899093154574229249, guid: 3cc0662dd9bcd424588667c9a6f80abf, type: 3}
   - {fileID: 615841533290986834, guid: a8cead64961e33d4494081d4d835b2fe, type: 3}
+  players:
+  - {fileID: 1051462984208562786, guid: 45495b8561ec12743a052321cd6db61e, type: 3}
+  - {fileID: 5100184500262981674, guid: 3132ca7e93939d44ba77298518ce295c, type: 3}
   mapSprites:
   - {fileID: -1132166425, guid: 17009a8d1ee6bf544912d7ef016d040d, type: 3}
   - {fileID: 1079635709, guid: 17009a8d1ee6bf544912d7ef016d040d, type: 3}
