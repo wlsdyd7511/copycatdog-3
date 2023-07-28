@@ -298,12 +298,14 @@ public class Character : MonoBehaviour, IWallBoom
     }
 
     // 탑승 아이템을 획득하면 호출되는 함수
-    public void ApplyRideableItem()
+    public void ApplyRideableItem(IRideable rideableItem)
     {
         if (isRidingItem)
         {
             return;
         }
+
+        currentRideable = rideableItem;
 
         isRidingItem = true;
         characterSpeed = ridingSpeed;
