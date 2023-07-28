@@ -15,7 +15,8 @@ public class TurtleItem : MonoBehaviour, IItem
 {
     private bool isDefending; // 거북이 아이템의 방어 기능
     private TurtleSpeed speed; //거북이 아이템 스피드
-
+    [SerializeField]
+    private GameObject rideTurtleItemPrefab;
 
     //거북이 아이템의 속도를 결정하는 랜덤 함수
     private TurtleSpeed GetRandomSpeed()
@@ -38,7 +39,7 @@ public class TurtleItem : MonoBehaviour, IItem
         Player.ApplyTurtleItemEffects(speed);
 
         //탑승 처리
-        RideTurtleItem rideTurtleItem = new RideTurtleItem();
+        RideTurtleItem rideTurtleItem = Instantiate(rideTurtleItemPrefab).GetComponent<RideTurtleItem>();
         rideTurtleItem.Ride(Player);
         
         Destroy(this.gameObject);

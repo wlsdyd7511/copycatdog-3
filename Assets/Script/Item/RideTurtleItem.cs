@@ -10,7 +10,7 @@ public class RideTurtleItem : MonoBehaviour, IRideable
     public RideTurtleItem()
     {
         // 탑승 아이템 프리팹을 로드
-        rideablePrefab = Resources.Load<GameObject>("Assets/Script/Item/RideTurtleItem");
+        rideablePrefab = Resources.Load<GameObject>("Assets/Prefab/ItemPrefab/RideTurtleItem");
     }
 
     public void Ride(Character player)
