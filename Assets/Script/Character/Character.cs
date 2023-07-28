@@ -42,9 +42,6 @@ public class Character : MonoBehaviour, IWallBoom
     //아이템 유무와 관련된 변수들    private 변경
     public int countNeedleItem = 0;//바늘 아이템 개수
     public int countShieldItem = 0;//방패 아이템 개수
-    public bool isTurtleItem = false; //거북이 아이템 유무 여부
-    public bool isUfoItem = false; //Ufo 아이템 유무 여부
-    public bool isOwlItem = false; //부엉이 아이템 유무 여부
 
     //바늘 아이템 사용 여부와 관련된 변수
     public bool canEscape = false;
@@ -65,7 +62,7 @@ public class Character : MonoBehaviour, IWallBoom
     public float ridingSpeed;
 
     //캐릭터 현재 속도
-    public float characterSpeed;
+    public float characterSpeed = 5f;
 
 
     void Start()
@@ -318,11 +315,8 @@ public class Character : MonoBehaviour, IWallBoom
 
     //캐릭터에 거북이 아이템 효과 적용 함수
     public void ApplyTurtleItemEffects(TurtleSpeed speed)
-    {
-        //터틀 아이템 유무 여부
-        isTurtleItem = true;
-
-        //터틀 아이템 속도 지정
+    {        
+        //거북이 아이템 속도 지정
         if (speed == TurtleSpeed.Fast)
         {
             ridingSpeed = 9f;
@@ -332,23 +326,18 @@ public class Character : MonoBehaviour, IWallBoom
         {
             ridingSpeed = 1f;
         }
-
     }
 
     //캐릭터에 Ufo 아이템 효과 적용 함수
     public void ApplyUfoItemEffects()
     {
-        isUfoItem = true;
         ridingSpeed = 10f;
-
     }
 
     //캐릭터에 부엉이 아이템 효과 적용 함수
     public void ApplyOwlItemEffects()
     {
-        isOwlItem = true;
         ridingSpeed = 5f;
-
     }
 
     // 탑승 아이템을 획득하면 호출되는 함수
@@ -362,7 +351,7 @@ public class Character : MonoBehaviour, IWallBoom
         currentRideable = rideableItem;
 
         isRidingItem = true;
-        characterSpeed = ridingSpeed;
+        moveSpeed = ridingSpeed;
     }
 
 
@@ -372,17 +361,20 @@ public class Character : MonoBehaviour, IWallBoom
     public void WaterBalloonBoom()
     {
 
-        //거북이를 탄 경우
-        if (isTurtleItem)
+        //탈 것을 탄 경우
+        if(isRidingItem)
         {
-            isTurtleItem = false;
-            //거북이 사라짐
+            isRidingItem = false;
+            moveSpeed = characterSpeed;
+
             return;
         }
+
         else if (isShieldItem)// 실드가 켜져 있다면
         {
             return;//맞지 않는다
         }
+
         //그 외의 경우에는 물풍선에 갇힘
         else
         {
