@@ -9,6 +9,12 @@ public class SettingRoom : MonoBehaviour
 
     void Start()
     {
+        ConfirmedMap = GetComponent<Image>();
+      
+    }
+
+    void Update()
+    {
         // 대기실 시작 시 선택한 맵 이미지를 불러와서 대기실에 표시
         Sprite selectedMap = MapSelect.GetSelectedMap();
         if (selectedMap != null)
