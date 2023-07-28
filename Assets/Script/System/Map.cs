@@ -42,20 +42,13 @@ public class Map : MonoBehaviour
             Debug.Log("파일명 : " + file.FullName);
             mapList.Add(file.FullName);
         }
-        CreateMap();
-
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CreateMap(int num)
     {
 
-    }
-
-    void CreateMap()
-    {
         GameObject tempObject;
-        ReadMapFile();
+        ReadMapFile(num);
         for (int i = 0; i < mapArr.GetLength(0); i++)
         {
             for (int j = 0; j < mapArr.GetLength(1); j++)
@@ -85,9 +78,9 @@ public class Map : MonoBehaviour
         }
     }
 
-    void ReadMapFile()
+    void ReadMapFile(int num)
     {
-        string[] contents = System.IO.File.ReadAllLines(mapList[Random.Range(0, mapList.Count)]);
+        string[] contents = System.IO.File.ReadAllLines(mapList[num]);
         string[] txtArr = contents[0].Split(',');
 
         Debug.Log(txtArr.Length);

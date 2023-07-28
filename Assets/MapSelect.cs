@@ -7,6 +7,7 @@ public class MapSelect : MonoBehaviour
 {
     public Image CheckMark; // 체크 표시 이미지 UI
     public GameObject MapSet;
+    public int mapnum;// 맵 번호
  
 
     private bool isSelected = false; // 맵 선택 여부
@@ -23,6 +24,7 @@ public class MapSelect : MonoBehaviour
         }
 
         // 현재 선택된 맵 이미지에 체크 표시 활성화
+        GameMgr.Instance.mapNum = mapnum;
         SetSelected(true);
     }
 

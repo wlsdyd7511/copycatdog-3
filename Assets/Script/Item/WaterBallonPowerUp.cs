@@ -6,7 +6,10 @@ public class WaterBallonPowerUp : MonoBehaviour, IItem
 {
     public void Get(Character Player)
     {
-        Player.waterBalloonPower++;
+        if (Player.limitPower > Player.waterBalloonPower)
+        {
+            Player.waterBalloonPower++;
+        }
         Destroy(this.gameObject);
     }
 

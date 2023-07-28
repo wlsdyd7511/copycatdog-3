@@ -8,7 +8,10 @@ public class SpeedUp : MonoBehaviour, IItem
 
     public void Get(Character Player)
     {
-        Player.moveSpeed += speed;
+        if (Player.limitSpeed > Player.moveSpeed)
+        {
+            Player.moveSpeed++;
+        }
         Destroy(this.gameObject);
     }
 
