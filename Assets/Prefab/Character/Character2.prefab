@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1080503098887912967}
   - component: {fileID: 5815548669960293207}
   - component: {fileID: 2238272152620564433}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FrontChecker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3265269885773732348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -65,7 +65,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.42, y: -0.11}
+  m_Offset: {x: -0.42, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -76,7 +76,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.8}
+  m_Size: {x: 0.1, y: 0.4}
   m_EdgeRadius: 0
 --- !u!114 &2238272152620564433
 MonoBehaviour:
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 9097282007507707164}
   - component: {fileID: 9208004786062856046}
   - component: {fileID: 9200601538784959301}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Character2
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ Transform:
   m_Children:
   - {fileID: 1080503098887912967}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6409528278982885360
 SpriteRenderer:
