@@ -754,6 +754,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CheckMark: {fileID: 1335510738}
   MapSet: {fileID: 1616295833}
+  mapnum: 0
 --- !u!114 &327986213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4610,6 +4611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CheckMark: {fileID: 1386803081}
   MapSet: {fileID: 1616295833}
+  mapnum: 1
 --- !u!114 &1727883847
 MonoBehaviour:
   m_ObjectHideFlags: 0

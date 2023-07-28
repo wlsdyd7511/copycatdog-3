@@ -699,6 +699,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2045130025}
   - component: {fileID: 2045130024}
+  - component: {fileID: 2045130026}
   m_Layer: 0
   m_Name: GameMgr
   m_TagString: Untagged
@@ -718,6 +719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e43d367274cdef4491c2f36f490b7f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapnum: 0
 --- !u!4 &2045130025
 Transform:
   m_ObjectHideFlags: 0
@@ -733,6 +735,42 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2045130026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2045130023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e7abe044d8ec754aab92575cc6892d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walls:
+  - {fileID: 5423959231596519683, guid: 6591fab33bbd28347a7c06b4a918a493, type: 3}
+  - {fileID: 899093154574229249, guid: 3cc0662dd9bcd424588667c9a6f80abf, type: 3}
+  - {fileID: 615841533290986834, guid: a8cead64961e33d4494081d4d835b2fe, type: 3}
+  players:
+  - {fileID: 1051462984208562786, guid: 45495b8561ec12743a052321cd6db61e, type: 3}
+  - {fileID: 5100184500262981674, guid: 3132ca7e93939d44ba77298518ce295c, type: 3}
+  InGameplayers:
+  - {fileID: 0}
+  - {fileID: 0}
+  mapSprites:
+  - {fileID: -1132166425, guid: 17009a8d1ee6bf544912d7ef016d040d, type: 3}
+  - {fileID: 1079635709, guid: 17009a8d1ee6bf544912d7ef016d040d, type: 3}
+  - {fileID: 1398982685, guid: 17009a8d1ee6bf544912d7ef016d040d, type: 3}
+  - {fileID: 21300000, guid: d00021724a5284f4ea98a2ba8e5f437f, type: 3}
+  - {fileID: 918626038, guid: 5f4f5c898c93b92438a2ea1fd29d6826, type: 3}
+  - {fileID: 1564660773, guid: 5f4f5c898c93b92438a2ea1fd29d6826, type: 3}
+  - {fileID: 21300000, guid: c6bd741ce905e854e9c71ff4a5c09ed0, type: 3}
+  groundSprites:
+  - {fileID: 2071868538, guid: 58bd5583ed76c044eb40ee007783cd67, type: 3}
+  - {fileID: 224932494, guid: 58bd5583ed76c044eb40ee007783cd67, type: 3}
+  - {fileID: -1871053810, guid: 58bd5583ed76c044eb40ee007783cd67, type: 3}
+  - {fileID: 1101952557, guid: 58bd5583ed76c044eb40ee007783cd67, type: 3}
+  - {fileID: 1423021719, guid: 58bd5583ed76c044eb40ee007783cd67, type: 3}
 --- !u!1 &2066467280
 GameObject:
   m_ObjectHideFlags: 0
