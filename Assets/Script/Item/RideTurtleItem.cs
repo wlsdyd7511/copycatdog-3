@@ -1,14 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Rider.Unity.Editor;
 using UnityEngine;
 
 
 public class RideTurtleItem : MonoBehaviour, IRideable
 {
+    private Character rider;
+    private Character.Direction riderDirection;
+
     public void Ride(Character player)
     {
         // 캐릭터를 탑승 처리하고, 캐릭터 속도를 조정
-        player.ApplyRideableItem(this);
+        rider = player;
+        player.ApplyRideableItem(this);        
+
+        // 거북이 아이템의 방향을 캐릭터 방향으로 설정
+        riderDirection = rider.playerDir;
 
         // 거북이 아이템을 캐릭터의 자식으로 설정
         transform.SetParent(player.transform);
