@@ -38,8 +38,11 @@ public class MapSelect : MonoBehaviour
         //선택한 맵 이미지 저장
         if (selected)
         {
-            selectedMapImage = CheckMark.sprite;
+            var sprite = GetComponent<Image>().sprite;
+            selectedMapImage = sprite;
         }
+
+        Debug.Log(gameObject.name + selected);
 
     }
 

@@ -602,7 +602,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 327986208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30ea84f1ae463c04496f18cfb28ec415, type: 3}
+  m_Script: {fileID: 11500000, guid: a02db7374484fe246a740cefa53d51a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CheckMark: {fileID: 1335510738}
@@ -850,7 +850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -884,7 +884,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 483484122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4995120e25866d40aac45ed3b703308, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b8e4792ab0b3c5449ff35564d46cebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ConfirmedMap: {fileID: 483484124}
@@ -3714,7 +3714,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1727883842}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30ea84f1ae463c04496f18cfb28ec415, type: 3}
+  m_Script: {fileID: 11500000, guid: a02db7374484fe246a740cefa53d51a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CheckMark: {fileID: 1386803081}
