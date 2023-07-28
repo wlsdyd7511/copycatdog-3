@@ -7,6 +7,7 @@ TagManager:
   - Manager
   - Attack
   - WaterBalloon
+  - PlayerAttack
   layers:
   - Default
   - TransparentFX

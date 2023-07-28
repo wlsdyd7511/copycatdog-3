@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &793940553308223221
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7549846910284338657}
+  - component: {fileID: 8805263234105258799}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7549846910284338657
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793940553308223221}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.187952, y: -6.897554, z: -3.5893772}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8805263234105258799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793940553308223221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e7abe044d8ec754aab92575cc6892d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walls:
+  - {fileID: 5423959231596519683, guid: 6591fab33bbd28347a7c06b4a918a493, type: 3}
+  - {fileID: 899093154574229249, guid: 3cc0662dd9bcd424588667c9a6f80abf, type: 3}
+  - {fileID: 615841533290986834, guid: a8cead64961e33d4494081d4d835b2fe, type: 3}
+  mapSprites:
+  - {fileID: -1132166425, guid: 17009a8d1ee6bf544912d7ef016d040d, type: 3}
+  - {fileID: 1079635709, guid: 17009a8d1ee6bf544912d7ef016d040d, type: 3}
+  - {fileID: 1398982685, guid: 17009a8d1ee6bf544912d7ef016d040d, type: 3}
+  - {fileID: 21300000, guid: d00021724a5284f4ea98a2ba8e5f437f, type: 3}
+  - {fileID: 918626038, guid: 5f4f5c898c93b92438a2ea1fd29d6826, type: 3}
+  - {fileID: 1564660773, guid: 5f4f5c898c93b92438a2ea1fd29d6826, type: 3}
+  - {fileID: 21300000, guid: c6bd741ce905e854e9c71ff4a5c09ed0, type: 3}
+  groundSprites:
+  - {fileID: 2071868538, guid: 58bd5583ed76c044eb40ee007783cd67, type: 3}
+  - {fileID: 224932494, guid: 58bd5583ed76c044eb40ee007783cd67, type: 3}
+  - {fileID: -1871053810, guid: 58bd5583ed76c044eb40ee007783cd67, type: 3}
+  - {fileID: 1101952557, guid: 58bd5583ed76c044eb40ee007783cd67, type: 3}
+  - {fileID: 1423021719, guid: 58bd5583ed76c044eb40ee007783cd67, type: 3}
