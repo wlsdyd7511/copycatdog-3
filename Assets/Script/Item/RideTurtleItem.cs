@@ -5,11 +5,6 @@ using UnityEngine;
 
 public class RideTurtleItem : MonoBehaviour, IRideable
 {
-    [SerializeField]
-    private GameObject rideTurtleFast; // 빠른 거북이 아이템 프리팹
-    [SerializeField]
-    private GameObject rideTurtleSlow; // 느린 거북이 아이템 프리팹
-
     public void Ride(Character player)
     {
         // 캐릭터를 탑승 처리하고, 캐릭터 속도를 조정
@@ -24,17 +19,4 @@ public class RideTurtleItem : MonoBehaviour, IRideable
 
     }
 
-    public GameObject GetRideablePrefab(Character player)
-    {
-        // 캐릭터의 현재 속도에 따라 적절한 프리팹 반환
-        if (player.ridingSpeed == 9f)
-        {
-            return rideTurtleFast;
-        }
-
-        else
-        {
-            return rideTurtleSlow;
-        }
-    }
 }
