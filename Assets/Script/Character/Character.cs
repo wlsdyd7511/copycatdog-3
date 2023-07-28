@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+
 public class Character : MonoBehaviour, IWallBoom
 {
     public enum Direction { Left, Up, Right, Down }; // 0 = 왼쪽, 1 = 위, 2 = 오른쪽, 3 = 아래,
@@ -57,6 +58,12 @@ public class Character : MonoBehaviour, IWallBoom
     //탑승 아이템 관련 변수들
     public bool isRidingItem = false;
     private IRideable currentRideable; // 현재 탑승 중인 아이템
+
+    //탑승 아이템 속도 관련 변수
+    public float ridingSpeed;
+
+    //캐릭터 현재 속도
+    public float characterSpeed;
 
 
     void Start()
@@ -263,12 +270,12 @@ public class Character : MonoBehaviour, IWallBoom
 
         if (speed == TurtleSpeed.Fast)
         {
-            moveSpeed = 8f;
+            ridingSpeed = 9f;
         }
 
         else
         {
-            moveSpeed = 4f;
+            ridingSpeed = 1f;
         }
     }
 
@@ -276,6 +283,7 @@ public class Character : MonoBehaviour, IWallBoom
     public void ApplyUfoItemEffects()
     {
         isUfoItem = true;
+        ridingSpeed = 10f;
 
     }
 
@@ -283,6 +291,8 @@ public class Character : MonoBehaviour, IWallBoom
     public void ApplyOwlItemEffects()
     {
         isOwlItem = true;
+        ridingSpeed = 5f;
+
     }
 
     // 탑승 아이템을 획득하면 호출되는 함수
@@ -293,10 +303,26 @@ public class Character : MonoBehaviour, IWallBoom
             Destroy(currentRideable.gameObject);
         }
 
-        currentRideable = rideableItem;
+        GameObject rideablePrefab = Instantiate(rideableItem.GetRideablePrefab(), transform.position, Quaternion.identity);
+        currentRideable = rideablePrefab.GetComponent<IRideable>();
         currentRideable.Ride(this);
+        isRidingItem = true;
+        characterSpeed = ridingSpeed;
 
         // currentRideable = Instantiate(rideableItem.gameObject, transform.position, Quaternion.identity, transform).GetComponent<IRideable>();
+    }
+
+    // 캐릭터가 탑승 아이템에서 내리면 호출되는 함수
+    public void DismountRideableItem()
+    {
+        if (isRidingItem && currentRideable != null)
+        {
+            // 원래 캐릭터의 속도로 돌아옴
+            characterSpeed = moveSpeed;
+
+            Destroy(currentRideable.gameObject);
+            isRidingItem = false;
+        }
     }
 
 

@@ -11,23 +11,10 @@ public enum TurtleSpeed
     Slow
 }
 
-public class TurtleItem : MonoBehaviour, IRideable
+public class TurtleItem : MonoBehaviour, IItem
 {
     private bool isDefending; // 거북이 아이템의 방어 기능
     private TurtleSpeed speed; //거북이 아이템 스피드
-
-
-    // IRideable 인터페이스 구현
-    public void Ride(Character player)
-    {
-        // 캐릭터를 탑승 아이템의 위치로 이동시킴
-        player.transform.position = transform.position;
-        // 캐릭터를 탑승 아이템의 자식 오브젝트로 설정하여 아이템의 움직임에 따라 함께 움직이도록 함
-        player.transform.parent = transform;
-        // 캐릭터의 탑승 상태 변수를 true로 설정
-        player.isRidingItem = true;
-
-    }
 
 
     //거북이 아이템의 속도를 결정하는 랜덤 함수
