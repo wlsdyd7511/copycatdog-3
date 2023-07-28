@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 using UnityEngine.UI;
 using System.Runtime.CompilerServices;
 using System.Linq;
-
+using Unity.VisualScripting;
 
 public class Character : MonoBehaviour, IWallBoom
 {
@@ -49,9 +49,6 @@ public class Character : MonoBehaviour, IWallBoom
     //아이템 유무와 관련된 변수들    private 변경
     public int countNeedleItem = 0;//바늘 아이템 개수
     public int countShieldItem = 0;//방패 아이템 개수
-    public bool isTurtleItem = false; //거북이 아이템 유무 여부
-    public bool isUfoItem = false; //Ufo 아이템 유무 여부
-    public bool isOwlItem = false; //부엉이 아이템 유무 여부
 
     //바늘 아이템 사용 여부와 관련된 변수
     public bool canEscape = false;
@@ -67,13 +64,16 @@ public class Character : MonoBehaviour, IWallBoom
     //탑승 아이템 관련 변수들
     public bool isRidingItem = false;
     private IRideable currentRideable; // 현재 탑승 중인 아이템
+    private IRideable realCurrentRideable;
 
     //탑승 아이템 속도 관련 변수
     public float ridingSpeed;
 
-    //캐릭터 현재 속도
-    public float characterSpeed;
+    //캐릭터 기본 속도
+    public float characterSpeed = 5f;
 
+    //캐릭터 공격당함 여부
+    public bool isAttacked = false;
 
     void Start()
     {
@@ -201,13 +201,20 @@ public class Character : MonoBehaviour, IWallBoom
         }
     }
 
+    void LateUpdate()
+    {
+        isAttacked = false;
+    }
+
     void OnTriggerEnter2D(Collider2D obj)
     {
 
-        if (obj.tag == "Attack" && !isTrapped)
+        if (obj.tag == "Attack" && !isTrapped && !isAttacked)
         {
             WaterBalloonBoom();
+            isAttacked = true;
         }
+
         else if(obj.tag == "PlayerAttack")
         {
             Character enemy = obj.GetComponentInParent<Character>();
@@ -338,36 +345,37 @@ public class Character : MonoBehaviour, IWallBoom
     //캐릭터에 거북이 아이템 효과 적용 함수
     public void ApplyTurtleItemEffects(TurtleSpeed speed)
     {
-        //터틀 아이템 유무 여부
-        isTurtleItem = true;
-
-        //터틀 아이템 속도 지정
-        if (speed == TurtleSpeed.Fast)
+        if (!isRidingItem)
         {
-            ridingSpeed = 9f;
-        }
+            //거북이 아이템 속도 지정
+            if (speed == TurtleSpeed.Fast)
+            {
+                ridingSpeed = 9f;
+            }
 
-        else
-        {
-            ridingSpeed = 1f;
+            else
+            {
+                ridingSpeed = 1f;
+            }
         }
-
     }
 
     //캐릭터에 Ufo 아이템 효과 적용 함수
     public void ApplyUfoItemEffects()
     {
-        isUfoItem = true;
-        ridingSpeed = 10f;
-
+        if (!isRidingItem)
+        {
+            ridingSpeed = 10f;
+        }
     }
 
     //캐릭터에 부엉이 아이템 효과 적용 함수
     public void ApplyOwlItemEffects()
     {
-        isOwlItem = true;
-        ridingSpeed = 5f;
-
+        if (!isRidingItem) 
+        {
+            ridingSpeed = 5f;
+        }
     }
 
     // 탑승 아이템을 획득하면 호출되는 함수
@@ -375,33 +383,39 @@ public class Character : MonoBehaviour, IWallBoom
     {
         if (isRidingItem)
         {
-            return;
+            currentRideable = realCurrentRideable;
+            currentRideable = rideableItem;
+            Destroy(currentRideable.gameObject);
+            currentRideable = realCurrentRideable;
         }
 
         currentRideable = rideableItem;
 
         isRidingItem = true;
-        characterSpeed = ridingSpeed;
+        moveSpeed = ridingSpeed;
     }
 
 
 
     //캐릭터가 물풍선에 맞은 경우를 구현한 함수
-
     public void WaterBalloonBoom()
     {
 
-        //거북이를 탄 경우
-        if (isTurtleItem)
+        //탈 것을 탄 경우
+        if(isRidingItem)
         {
-            isTurtleItem = false;
-            //거북이 사라짐
+            isRidingItem = false;            
+            moveSpeed = characterSpeed;
+            Destroy(currentRideable.gameObject);
+
             return;
         }
+
         else if (isShieldItem)// 실드가 켜져 있다면
         {
             return;//맞지 않는다
         }
+
         //그 외의 경우에는 물풍선에 갇힘
         else
         {
