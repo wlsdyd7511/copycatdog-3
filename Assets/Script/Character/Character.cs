@@ -18,6 +18,7 @@ public class Character : MonoBehaviour, IWallBoom
     public int waterBalloonMaxCount = 1;
     public int currentWaterBalloons = 0;
     public float moveSpeed = 5f;
+    public float inWaterSpeed = 1f; // 물풍선에 갇혔을때 속도
     private bool isTrapped = false;
     private Waterballoon tempWaterBalloon;
     private Vector3 waterBalloonPos;
@@ -25,7 +26,6 @@ public class Character : MonoBehaviour, IWallBoom
     private float preMoveSpeed;
     public bool canPush = false;
     public bool canThrow = false;
-    public bool haveWaterBalloon = false;
     public Direction playerDir = Direction.Left;
     public float pushTime = 0;
 
@@ -68,8 +68,22 @@ public class Character : MonoBehaviour, IWallBoom
 
     void FixedUpdate()
     {
-        transform.Translate(moveDirect * Time.deltaTime);
+        
         frontCheckerObject.transform.rotation = Quaternion.Euler(0,0,-90 * (int)playerDir);
+        if (isTrapped)
+        {
+            transform.Translate(moveDirect / moveSpeed * Time.deltaTime * inWaterSpeed);
+            timer += Time.deltaTime;
+            if(timer >= 7f)
+            {
+                animator.SetBool("Die", true);
+                GameOver();
+            }
+        }
+        else
+        {
+            transform.Translate(moveDirect * Time.deltaTime);
+        }
     }
 
     void Update()
@@ -82,15 +96,7 @@ public class Character : MonoBehaviour, IWallBoom
 
         if (Input.GetKeyDown(playerKey[4]))
         {
-            if (haveWaterBalloon)
-            {
-                ThrowWaterBalloon();
-                haveWaterBalloon = false;
-            }
-            else
-            {
-                SpawnWaterBalloon();
-            }
+            SpawnWaterBalloon();
         }
 
         if (Input.GetKeyDown(playerKey[0]))
@@ -149,9 +155,10 @@ public class Character : MonoBehaviour, IWallBoom
 
     void OnTriggerEnter2D(Collider2D obj)
     {
-
+        
         if (obj.tag == "Attack")
         {
+            Debug.Log("attack");
             WaterBalloonBoom();
         }
     }
@@ -164,11 +171,6 @@ public class Character : MonoBehaviour, IWallBoom
             if (obj.gameObject != frontChecker.FrontWaterBalloon)
             {
                 return;
-            }
-            pushTime += Time.deltaTime;
-            if (pushTime > .5f)
-            {
-                //물풍선 밀기
             }
         }
     }
@@ -183,7 +185,7 @@ public class Character : MonoBehaviour, IWallBoom
                 return;
             }
             pushTime += Time.deltaTime;
-            if (pushTime > .5f)
+            if (pushTime > .25f)
             {
                 pushTime = 0;
                 PushWaterBalloon();
@@ -208,9 +210,9 @@ public class Character : MonoBehaviour, IWallBoom
         {
             if (canThrow)
             {
-                haveWaterBalloon = true;
                 Destroy(tempWaterBalloon.gameObject);
                 Map.instance.mapArr[7 - (int)waterBalloonPos.y, (int)waterBalloonPos.x + 7] = 0;
+                ThrowWaterBalloon();
             }
             return;
         }
@@ -304,16 +306,15 @@ public class Character : MonoBehaviour, IWallBoom
 
     public void WaterBalloonBoom()
     {
-        Debug.Log("맞았다");
-
 
         //거북이를 탄 경우
         if (isTurtleItem)
         {
             isTurtleItem = false;
+            //거북이 사라짐
+            return;
         }
-
-        //방패 아이템이 있는 경우
+        //방패 아이템이 켜져있는 경우
         else if (isShieldItem)
         {
             //방패를 보호 상태로 변경하고 타이머 시작
@@ -330,14 +331,13 @@ public class Character : MonoBehaviour, IWallBoom
             //방패 아이템 삭제
             isShieldItem = false;
         }
-
         //그 외의 경우에는 물풍선에 갇힘
         else
         {
             isTrapped = true;
-            timer += Time.deltaTime;
-
-            //바늘 아이템이 있는 경우
+            animator.SetBool("InWater",true);
+            //바늘 아이템이 있는 경우 -> 바늘아이템을 사용했을때로 이전
+            /*
             if (countNeedleItem > 0 && timer >= needleItemDelay && canEscape)
             {
                 Debug.Log("바늘 아이템을 이용해 물풍선 탈출!");
@@ -347,12 +347,7 @@ public class Character : MonoBehaviour, IWallBoom
                 timer = 0f;
                 canEscape = false;
             }
-
-            //바늘 아이템이 없는 경우
-            else
-            {
-                Debug.Log("GameOver");
-            }
+            */
         }
 
 
@@ -602,5 +597,10 @@ public class Character : MonoBehaviour, IWallBoom
     {
         animator.SetInteger("Direction", (int)playerDir);
         animator.SetBool("Moving",move);
+    }
+
+    private void GameOver()
+    {
+        //게임 오버시 호출 
     }
 }
