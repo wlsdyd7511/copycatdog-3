@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IItem : IWallBoom 
 {
     void Get(Character Player);
+
 }

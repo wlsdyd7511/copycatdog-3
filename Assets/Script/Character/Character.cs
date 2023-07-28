@@ -41,6 +41,10 @@ public class Character : MonoBehaviour, IWallBoom
     private float deathDelay = 10f;
     private float timer = 0f;
 
+    //탑승 아이템 관련 변수들
+    public bool isRidingItem = false;
+    private IRideable currentRideable; // 현재 탑승 중인 아이템
+
 
     void Start()
     {
@@ -167,12 +171,20 @@ public class Character : MonoBehaviour, IWallBoom
 
 
     //캐릭터에 거북이 아이템 효과 적용 함수
-    public void ApplyTurtleItemEffects()
+    public void ApplyTurtleItemEffects(TurtleSpeed speed)
     {
 
         isTurtleItem = true;
 
+        if (speed == TurtleSpeed.Fast)
+        {
+            moveSpeed = 8f;
+        }
 
+        else
+        {
+            moveSpeed = 4f;
+        }
     }
 
     //캐릭터에 Ufo 아이템 효과 적용 함수
@@ -187,6 +199,21 @@ public class Character : MonoBehaviour, IWallBoom
     {
         isOwlItem = true;
     }
+
+    // 탑승 아이템을 획득하면 호출되는 함수
+    public void ApplyRideableItem(IRideable rideableItem)
+    {
+        if (currentRideable != null)
+        {
+            Destroy(currentRideable.gameObject);
+        }
+
+        currentRideable = rideableItem;
+        currentRideable.Ride(this);
+
+        // currentRideable = Instantiate(rideableItem.gameObject, transform.position, Quaternion.identity, transform).GetComponent<IRideable>();
+    }
+
 
     //캐릭터가 물풍선에 맞은 경우를 구현한 함수
 

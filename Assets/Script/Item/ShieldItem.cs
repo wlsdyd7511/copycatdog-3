@@ -27,6 +27,13 @@ public class ShieldItem : MonoBehaviour, IItem
             WaterBalloonBoom();
         }
     }
+    private void Start()
+    {
+        // BoxCollider2D 컴포넌트 추가
+        BoxCollider2D boxCollider = gameObject.AddComponent<BoxCollider2D>();
+        // Is Trigger 옵션을 체크
+        boxCollider.isTrigger = true;
+    }
 
     //물풍선에 맞아서 사라지는 방패 아이템
     public void WaterBalloonBoom()
