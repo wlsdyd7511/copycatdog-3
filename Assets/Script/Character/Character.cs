@@ -309,22 +309,8 @@ public class Character : MonoBehaviour, IWallBoom
 
         isRidingItem = true;
         characterSpeed = ridingSpeed;
-
-        // currentRideable = Instantiate(rideableItem.gameObject, transform.position, Quaternion.identity, transform).GetComponent<IRideable>();
     }
 
-    // 캐릭터가 탑승 아이템에서 내리면 호출되는 함수
-    public void DismountRideableItem()
-    {
-        if (isRidingItem && currentRideable != null)
-        {
-            // 원래 캐릭터의 속도로 돌아옴
-            characterSpeed = moveSpeed;
-
-            Destroy(currentRideable.gameObject);
-            isRidingItem = false;
-        }
-    }
 
 
     //캐릭터가 물풍선에 맞은 경우를 구현한 함수

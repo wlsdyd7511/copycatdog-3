@@ -41,7 +41,7 @@ public class TurtleItem : MonoBehaviour, IItem
         //탑승 처리
         RideTurtleItem rideTurtleItem = Instantiate(RideTurtleItem).GetComponent<RideTurtleItem>();
         rideTurtleItem.Ride(Player);
-        
+
         Destroy(this.gameObject);
     }
 
