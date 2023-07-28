@@ -4,10 +4,10 @@ using UnityEngine;
 //SceneManagement
 using UnityEngine.SceneManagement;
 
-public class StartGame : MonoBehaviour
+public class StartInGame : MonoBehaviour
 {
     public void StartButton()
     {
-        SceneManager.LoadScene("Main");  //Main 화면으로 전환
+        SceneManager.LoadScene("InGame");  //대기실 화면으로 전환
     }
 }
