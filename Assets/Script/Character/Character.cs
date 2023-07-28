@@ -281,6 +281,9 @@ public class Character : MonoBehaviour, IWallBoom
                 ThrowWaterBalloon();
             }
             return;
+        }else if (Map.instance.mapArr[7 - (int)waterBalloonPos.y, (int)waterBalloonPos.x + 7] != 0)
+        {
+            return;
         }
         if (currentWaterBalloons >= waterBalloonMaxCount)
         {
@@ -365,6 +368,7 @@ public class Character : MonoBehaviour, IWallBoom
     {
         if (!isRidingItem)
         {
+            gameObject.layer = 8;
             ridingSpeed = 10f;
         }
     }
@@ -404,6 +408,7 @@ public class Character : MonoBehaviour, IWallBoom
         //탈 것을 탄 경우
         if(isRidingItem)
         {
+            gameObject.layer = 6;
             isRidingItem = false;            
             moveSpeed = characterSpeed;
             Destroy(currentRideable.gameObject);
