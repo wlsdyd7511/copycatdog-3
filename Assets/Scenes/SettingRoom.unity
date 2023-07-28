@@ -575,7 +575,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 342e7d2f09e865644aa7029e9079d044, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -811,7 +811,7 @@ GameObject:
   - component: {fileID: 483484124}
   - component: {fileID: 483484126}
   m_Layer: 5
-  m_Name: Map
+  m_Name: ConfirmedMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -850,7 +850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -884,9 +884,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 483484122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1c65edbbaccd654ba384857cb9b3492, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f62f99ad7caab2439aa7bbb17b0015e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ConfirmedMap: {fileID: 0}
 --- !u!1 &685745348
 GameObject:
   m_ObjectHideFlags: 0
@@ -1353,6 +1354,7 @@ GameObject:
   - component: {fileID: 871138108}
   - component: {fileID: 871138113}
   - component: {fileID: 871138112}
+  - component: {fileID: 871138114}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1498,6 +1500,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 871138107}
   m_CullTransparentMesh: 1
+--- !u!114 &871138114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871138107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f62f99ad7caab2439aa7bbb17b0015e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConfirmedMap: {fileID: 0}
 --- !u!1 &894761619
 GameObject:
   m_ObjectHideFlags: 0
@@ -3686,7 +3701,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: eff59823144dc5847a6a03bc331ea1f0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3716,7 +3731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30ea84f1ae463c04496f18cfb28ec415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CheckMark: {fileID: 1335510738}
+  CheckMark: {fileID: 1386803081}
   MapSet: {fileID: 1616295833}
 --- !u!114 &1727883847
 MonoBehaviour:
