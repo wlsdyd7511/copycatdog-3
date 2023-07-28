@@ -10,7 +10,6 @@ public class RideTurtleItem : MonoBehaviour, IRideable
     [SerializeField]
     private GameObject rideTurtleSlow; // 느린 거북이 아이템 프리팹
 
-
     public void Ride(Character player)
     {
         // 캐릭터를 탑승 처리하고, 캐릭터 속도를 조정

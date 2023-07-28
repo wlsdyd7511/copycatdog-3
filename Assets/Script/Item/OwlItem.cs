@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class OwlItem : MonoBehaviour, IItem
 {
+    [SerializeField]
+    private GameObject RideOwlItem;
+
     //캐릭터가 부엉이 아이템을 획득한 경우
     public void Get(Character Player)
     {
         Player.ApplyOwlItemEffects();
+
+        //탑승 처리
+        RideOwlItem rideOwlItem = Instantiate(RideOwlItem).GetComponent<RideOwlItem>();
+        rideOwlItem.Ride(Player);
+
         Destroy(this.gameObject);
     }
     void OnTriggerEnter2D(Collider2D obj)
