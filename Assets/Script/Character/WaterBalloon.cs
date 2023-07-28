@@ -12,6 +12,7 @@ public class Waterballoon : MonoBehaviour
     public BoxCollider2D waterBalloonBlock;
     public CircleCollider2D waterBalloonCollider;
     public Character Player;
+    public SpriteRenderer waterBalloonRenderer;
     private bool isExplode = false;
     public bool moving = false;
     public Vector3 targetPos;
@@ -23,7 +24,8 @@ public class Waterballoon : MonoBehaviour
     {
         StartCoroutine(ExplodeAfterDelay(5f));
         Debug.Log(Position[0] + "," + Position[1]);
-        waterBalloonCollider=this.gameObject.gameObject.GetComponent<CircleCollider2D>();
+        waterBalloonCollider= gameObject.GetComponent<CircleCollider2D>();
+        waterBalloonRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -31,7 +33,7 @@ public class Waterballoon : MonoBehaviour
         nowPos = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), 0);
         if (moving)
         {
-            
+            waterBalloonRenderer.sortingOrder = 20;
             waterBalloonBlock.enabled = false;
             waterBalloonCollider.enabled = false;
             transform.Translate(movingDir * Time.deltaTime);
@@ -41,6 +43,7 @@ public class Waterballoon : MonoBehaviour
                 waterBalloonCollider.enabled = true;
                 moving = false;
                 transform.position = nowPos;
+                waterBalloonRenderer.sortingOrder = 8 - (int)targetPos.y;
             }
             if(transform.position.x < -8)
             {
@@ -187,7 +190,8 @@ public class Waterballoon : MonoBehaviour
 
         if (obj.tag == "Attack" && !isExplode)
         {
-            this.gameObject.GetComponent<CircleCollider2D>().enabled = false;
+            waterBalloonCollider.enabled = false;
+            waterBalloonBlock.enabled = false;
             Explode();
         }
     }
