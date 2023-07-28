@@ -364,8 +364,9 @@ public class Character : MonoBehaviour, IWallBoom
         //탈 것을 탄 경우
         if(isRidingItem)
         {
-            isRidingItem = false;
+            isRidingItem = false;            
             moveSpeed = characterSpeed;
+            Destroy(currentRideable.gameObject);
 
             return;
         }
