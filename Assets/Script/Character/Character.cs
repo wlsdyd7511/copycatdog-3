@@ -35,6 +35,7 @@ public class Character : MonoBehaviour, IWallBoom
     public KeyCode[] playerKey; // 0 = 왼쪽, 1 = 위, 2 = 오른쪽, 3 = 아래, 4 = 물풍선설치, 5 = 아이템 사용
 
     private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
 
     //아이템 유무와 관련된 변수들    private 변경
@@ -65,6 +66,7 @@ public class Character : MonoBehaviour, IWallBoom
         frontCheckerObject = frontChecker.gameObject;
         preMoveSpeed = moveSpeed;
         animator = this.GetComponent<Animator>();
+        spriteRenderer = this.GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()
@@ -73,7 +75,7 @@ public class Character : MonoBehaviour, IWallBoom
         if (isTrapped)
         {
             transform.Translate(moveDirect / moveSpeed * Time.deltaTime * inWaterSpeed);
-            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y);
+            spriteRenderer.sortingOrder = 8 - (int)Mathf.Round(transform.position.y);
             timer += Time.deltaTime;
             if(timer >= 7f)
             {
@@ -84,7 +86,7 @@ public class Character : MonoBehaviour, IWallBoom
         else
         {
             transform.Translate(moveDirect * Time.deltaTime);
-            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y);
+            spriteRenderer.sortingOrder = 8 - (int)Mathf.Round(transform.position.y);
         }
 
         if (isShieldItem)
