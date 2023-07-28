@@ -6,10 +6,11 @@ using UnityEngine;
 public class Map : MonoBehaviour
 {
     public GameObject[] walls = new GameObject[2];// 0 = 바닥, 1 = 안부숴지는벽, 2 = 부숴지는거
+    public GameObject[] players = new GameObject[2];
     public GameObject[,] mapObject;
     public Sprite[] mapSprites;
     public Sprite[] groundSprites; // 0 기본 1~ 가로 횡단보도, 세로 횡단보도, 가로선, 세로선, 도로
-    public int[,] mapArr; // 0 = 빈공간, 1 = 부숴지지 않는벽, 2 = 부숴지는벽, 3 = 물풍선, 4 = 디자인 다른 바닥
+    public int[,] mapArr; // 0 = 빈공간, 1 = 부숴지지 않는벽, 2 = 부숴지는벽, 3 = 물풍선, 4 = 1p, 5 = 2p
     private int[,] mapSpriteArr; //  0 = x, 1 ~ 블럭 빨, 노, 파, 박스, 집 빨, 파
     private int[,] groundSpriteArr;
     private List<string> mapList = new List<string>();
@@ -36,18 +37,18 @@ public class Map : MonoBehaviour
 
         foreach (FileInfo file in di.GetFiles("*.txt"))
         {
-            
+
             Debug.Log("파일명 : " + file.FullName);
             mapList.Add(file.FullName);
         }
         CreateMap();
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void CreateMap()
@@ -59,16 +60,21 @@ public class Map : MonoBehaviour
             for (int j = 0; j < mapArr.GetLength(1); j++)
             {
                 wallPos = new Vector3(-7 + j * 1, 7 - i * 1);
-                if (mapArr[i, j] != 0 && mapArr[i, j] < 4)
+                if (mapArr[i, j] != 0 && mapArr[i, j] < 3)
                 {
-                    mapObject[i,j] = Instantiate(walls[mapArr[i, j]], wallPos, Quaternion.identity);
-                    mapObject[i, j].GetComponent<SpriteRenderer>().sprite = mapSprites[mapSpriteArr[i, j]-1];
-                    mapObject[i, j].GetComponent<SpriteRenderer>().sortingOrder = i+1;
+                    mapObject[i, j] = Instantiate(walls[mapArr[i, j]], wallPos, Quaternion.identity);
+                    mapObject[i, j].GetComponent<SpriteRenderer>().sprite = mapSprites[mapSpriteArr[i, j] - 1];
+                    mapObject[i, j].GetComponent<SpriteRenderer>().sortingOrder = i + 1;
+                }
+                else if (mapArr[i, j] >= 4)
+                {
+                    Instantiate(players[mapArr[i, j] - 4], wallPos, Quaternion.identity);
+                    mapArr[i, j] = 0;
                 }
                 if (groundSpriteArr[i, j] != 0)
                 {
                     tempObject = Instantiate(walls[0], wallPos, Quaternion.identity);
-                    tempObject.GetComponent<SpriteRenderer>().sprite = groundSprites[groundSpriteArr[i, j]-1];
+                    tempObject.GetComponent<SpriteRenderer>().sprite = groundSprites[groundSpriteArr[i, j] - 1];
                 }
                 else
                 {
@@ -78,9 +84,9 @@ public class Map : MonoBehaviour
         }
     }
 
-   void ReadMapFile()
+    void ReadMapFile()
     {
-        string[] contents = System.IO.File.ReadAllLines(mapList[Random.Range(0,mapList.Count)]);
+        string[] contents = System.IO.File.ReadAllLines(mapList[Random.Range(0, mapList.Count)]);
         string[] txtArr = contents[0].Split(',');
 
         Debug.Log(txtArr.Length);
@@ -97,15 +103,14 @@ public class Map : MonoBehaviour
                 int[] numArr = new int[txtArr.Length];
                 for (int j = 0; j < numArr.Length; j++)
                 {
-                    mapArr[cnt,j] = int.Parse(txtArr[j]);
+                    mapArr[cnt, j] = int.Parse(txtArr[j]);
                 }
                 cnt++;
             }
             cnt = 0;
-            for (int i = txtArr.Length+1; i < txtArr.Length*2 + 1; i++)
+            for (int i = txtArr.Length + 1; i < txtArr.Length * 2 + 1; i++)
             {
                 txtArr = contents[i].Split(',');
-                Debug.Log(txtArr[0]);
                 int[] numArr = new int[txtArr.Length];
                 for (int j = 0; j < numArr.Length; j++)
                 {
@@ -125,6 +130,6 @@ public class Map : MonoBehaviour
                 }
                 cnt++;
             }
-        } 
+        }
     }
 }
