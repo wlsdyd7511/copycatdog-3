@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
 
+
 public class Character : MonoBehaviour, IWallBoom
 {
     public enum Direction { Left, Up, Right, Down }; // 0 = 왼쪽, 1 = 위, 2 = 오른쪽, 3 = 아래,
@@ -59,6 +60,12 @@ public class Character : MonoBehaviour, IWallBoom
     //탑승 아이템 관련 변수들
     public bool isRidingItem = false;
     private IRideable currentRideable; // 현재 탑승 중인 아이템
+
+    //탑승 아이템 속도 관련 변수
+    public float ridingSpeed;
+
+    //캐릭터 현재 속도
+    public float characterSpeed;
 
 
     void Start()
@@ -312,24 +319,27 @@ public class Character : MonoBehaviour, IWallBoom
     //캐릭터에 거북이 아이템 효과 적용 함수
     public void ApplyTurtleItemEffects(TurtleSpeed speed)
     {
-
+        //터틀 아이템 유무 여부
         isTurtleItem = true;
 
+        //터틀 아이템 속도 지정
         if (speed == TurtleSpeed.Fast)
         {
-            moveSpeed = 8f;
+            ridingSpeed = 9f;
         }
 
         else
         {
-            moveSpeed = 4f;
+            ridingSpeed = 1f;
         }
+
     }
 
     //캐릭터에 Ufo 아이템 효과 적용 함수
     public void ApplyUfoItemEffects()
     {
         isUfoItem = true;
+        ridingSpeed = 10f;
 
     }
 
@@ -337,21 +347,24 @@ public class Character : MonoBehaviour, IWallBoom
     public void ApplyOwlItemEffects()
     {
         isOwlItem = true;
+        ridingSpeed = 5f;
+
     }
 
     // 탑승 아이템을 획득하면 호출되는 함수
     public void ApplyRideableItem(IRideable rideableItem)
     {
-        if (currentRideable != null)
+        if (isRidingItem)
         {
-            Destroy(currentRideable.gameObject);
+            return;
         }
 
         currentRideable = rideableItem;
-        currentRideable.Ride(this);
 
-        // currentRideable = Instantiate(rideableItem.gameObject, transform.position, Quaternion.identity, transform).GetComponent<IRideable>();
+        isRidingItem = true;
+        characterSpeed = ridingSpeed;
     }
+
 
 
     //캐릭터가 물풍선에 맞은 경우를 구현한 함수

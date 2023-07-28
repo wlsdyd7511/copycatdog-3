@@ -97,3 +97,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb10c17f03caa284a9b94ee6011cd222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RideUfoItem: {fileID: 3075935227313810017, guid: 2b08794a5234dac498b1345c1feae51f, type: 3}

@@ -97,3 +97,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 306e33beab15ed34f8c7e4b9fac98695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fastTurtleItem: {fileID: 764208164726741302, guid: 7ce5a2556d4309a489b743dd048310ae, type: 3}
+  slowTurtleItem: {fileID: 3329914355050057682, guid: 055f8c991f31db8498838bc41fc928ee, type: 3}

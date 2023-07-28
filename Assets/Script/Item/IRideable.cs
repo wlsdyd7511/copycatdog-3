@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IRideable : IItem
+public interface IRideable
 {
     void Ride(Character player);
-    GameObject gameObject { get; }
-
+    GameObject gameObject { get; } // GameObject 속성 추가
 }
