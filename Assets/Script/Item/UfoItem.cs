@@ -11,11 +11,13 @@ public class UfoItem : MonoBehaviour, IItem
     //캐릭터가 Ufo 아이템을 획득한 경우
     public void Get(Character Player)
     {
-        Player.ApplyUfoItemEffects();
-
-        //탑승 처리
-        RideUfoItem rideUfoItem = Instantiate(RideUfoItem).GetComponent<RideUfoItem>();
-        rideUfoItem.Ride(Player);
+        if (!Player.isRidingItem)// 플래이어가 타고있지 않을때
+        {
+            Player.ApplyUfoItemEffects();
+            //탑승 처리
+            RideUfoItem rideUfoItem = Instantiate(RideUfoItem).GetComponent<RideUfoItem>();
+            rideUfoItem.Ride(Player);
+        }
 
         Destroy(this.gameObject);
     }

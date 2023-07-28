@@ -45,6 +45,7 @@ public class Character : MonoBehaviour, IWallBoom
     private SpriteRenderer spriteRenderer;
     public int playerNum;//1p 2p 구별용
     private Ending ending;
+    private bool invi = false; // 무적타임용
 
     //아이템 유무와 관련된 변수들    private 변경
     public int countNeedleItem = 0;//바늘 아이템 개수
@@ -387,14 +388,10 @@ public class Character : MonoBehaviour, IWallBoom
     {
         if (isRidingItem)
         {
-            currentRideable = realCurrentRideable;
-            currentRideable = rideableItem;
-            Destroy(currentRideable.gameObject);
-            currentRideable = realCurrentRideable;
+            return;
         }
 
         currentRideable = rideableItem;
-
         isRidingItem = true;
         moveSpeed = ridingSpeed;
     }
@@ -405,22 +402,21 @@ public class Character : MonoBehaviour, IWallBoom
     public void WaterBalloonBoom()
     {
 
+        if (isShieldItem || invi)// 실드가 켜져 있다면 or 무적이라면
+        {
+            return;//맞지 않는다
+        }
         //탈 것을 탄 경우
-        if(isRidingItem)
+        else if (isRidingItem)
         {
             gameObject.layer = 6;
             isRidingItem = false;            
             moveSpeed = characterSpeed;
             Destroy(currentRideable.gameObject);
-
+            invi = true;
+            StartCoroutine(InviTime(1));
             return;
         }
-
-        else if (isShieldItem)// 실드가 켜져 있다면
-        {
-            return;//맞지 않는다
-        }
-
         //그 외의 경우에는 물풍선에 갇힘
         else
         {
@@ -429,7 +425,12 @@ public class Character : MonoBehaviour, IWallBoom
         }
 
         animator.SetBool("Live", false);
+    }
 
+    private System.Collections.IEnumerator InviTime(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        invi = false;
     }
 
     public void KeyPushCheck()
