@@ -1376,8 +1376,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   background: {fileID: 522904459}
   winer:
-  - {fileID: 1522814020}
   - {fileID: 1053447458}
+  - {fileID: 1522814020}
 --- !u!1 &1804561981
 GameObject:
   m_ObjectHideFlags: 0
