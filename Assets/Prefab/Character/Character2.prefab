@@ -290,7 +290,12 @@ MonoBehaviour:
   canThrow: 0
   playerDir: 0
   pushTime: 0
+  infinitymod: 0
+  limitCount: 6
+  limitPower: 7
+  limitSpeed: 8
   playerKey: 640000007200000067000000660000003001000032010000
+  playerNum: 1
   countNeedleItem: 0
   countShieldItem: 0
   isTurtleItem: 0

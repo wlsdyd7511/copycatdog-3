@@ -6,7 +6,8 @@ public class GameMgr : MonoBehaviour
 {
     // 싱글톤 인스턴스를 저장할 변수
     private static GameMgr instance;
-    public int mapnum = 0;
+    public int mapNum = 0;
+    public int modNum = 0;
     // 외부에서 접근 가능한 싱글톤 인스턴스
     public static GameMgr Instance
     {
@@ -28,7 +29,7 @@ public class GameMgr : MonoBehaviour
 
     public void GameStart() 
     {
-        Map.instance.CreateMap(mapnum);
+        Map.instance.CreateMap(mapNum);
     }
  
 }

@@ -7,7 +7,10 @@ public class WaterBallonCountUp : MonoBehaviour, IItem
 
     public void Get(Character Player)
     {
-        Player.waterBalloonMaxCount++;
+        if (Player.limitCount > Player.waterBalloonMaxCount)
+        {
+            Player.waterBalloonMaxCount++;
+        }
         Destroy(this.gameObject);
     }
 

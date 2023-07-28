@@ -6,6 +6,8 @@ using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
+using System.Runtime.CompilerServices;
+using System.Linq;
 
 public class Character : MonoBehaviour, IWallBoom
 {
@@ -31,12 +33,17 @@ public class Character : MonoBehaviour, IWallBoom
     public bool canThrow = false;
     public Direction playerDir = Direction.Left;
     public float pushTime = 0;
+    public bool infinitymod = false;
+    public int limitCount = 6;
+    public int limitPower = 7;
+    public int limitSpeed = 8;
 
     public KeyCode[] playerKey; // 0 = 왼쪽, 1 = 위, 2 = 오른쪽, 3 = 아래, 4 = 물풍선설치, 5 = 아이템 사용
 
     private Animator animator;
     private SpriteRenderer spriteRenderer;
-
+    public int playerNum;//1p 2p 구별용
+    private Ending ending;
 
     //아이템 유무와 관련된 변수들    private 변경
     public int countNeedleItem = 0;//바늘 아이템 개수
@@ -67,6 +74,16 @@ public class Character : MonoBehaviour, IWallBoom
         preMoveSpeed = moveSpeed;
         animator = this.GetComponent<Animator>();
         spriteRenderer = this.GetComponent<SpriteRenderer>();
+        if(GameMgr.Instance.modNum == 1)
+        {
+            limitCount = 100;
+            limitPower = 100;
+            limitSpeed = 100;
+            waterBalloonMaxCount = 100;
+            waterBalloonPower = 100;
+            moveSpeed = 10;
+        }
+        ending = GameObject.FindWithTag("InGameUI").GetComponent<Ending>();
     }
 
     void FixedUpdate()
@@ -80,7 +97,7 @@ public class Character : MonoBehaviour, IWallBoom
             if(timer >= 7f)
             {
                 animator.SetBool("Die", true);
-                GameOver();
+                GameOver(playerNum);
             }
         }
         else
@@ -98,6 +115,8 @@ public class Character : MonoBehaviour, IWallBoom
                 isShieldItem = false;
             }
         }
+
+
     }
 
     void Update()
@@ -626,9 +645,13 @@ public class Character : MonoBehaviour, IWallBoom
         animator.SetBool("Moving",move);
     }
 
-    private void GameOver()
+    private void GameOver(int num)
     {
-        //게임 오버시 호출 
+        ending.DisplayEnding(num);
+        for(int i = 0; i < playerKey.Length; i++)
+        {
+            playerKey[i] = KeyCode.F11;
+        }
         Debug.Log("게임오버");
     }
 }

@@ -24,7 +24,7 @@ public class MapSelect : MonoBehaviour
         }
 
         // 현재 선택된 맵 이미지에 체크 표시 활성화
-        GameMgr.Instance.mapnum = mapnum;
+        GameMgr.Instance.mapNum = mapnum;
         SetSelected(true);
     }
 
