@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2232862876192318247
 SpriteRenderer:
@@ -97,3 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56003104390b6f9409df072fafbdf19a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turtleSprite:
+  - {fileID: -1124179724, guid: 72462a5e646e5f242a4d4b1baf673b9a, type: 3}
+  - {fileID: -1516199892, guid: afd1024898caf9b46918a817497cea9f, type: 3}
+  - {fileID: -846694693, guid: b38fe9a98fa6a8e45a4ca2394f48e017, type: 3}
+  - {fileID: 209004168, guid: 9f0b774578fbd69449f61da84249810d, type: 3}
