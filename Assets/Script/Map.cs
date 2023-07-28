@@ -7,6 +7,7 @@ public class Map : MonoBehaviour
 {
     public GameObject[] walls = new GameObject[2];// 0 = 바닥, 1 = 안부숴지는벽, 2 = 부숴지는거
     public GameObject[] players = new GameObject[2];
+    public Character[] InGameplayers = new Character[2];
     public GameObject[,] mapObject;
     public Sprite[] mapSprites;
     public Sprite[] groundSprites; // 0 기본 1~ 가로 횡단보도, 세로 횡단보도, 가로선, 세로선, 도로
@@ -68,7 +69,7 @@ public class Map : MonoBehaviour
                 }
                 else if (mapArr[i, j] >= 4)
                 {
-                    Instantiate(players[mapArr[i, j] - 4], new Vector3(wallPos.x, wallPos.y, -2), Quaternion.identity);
+                    InGameplayers[mapArr[i, j] - 4] = Instantiate(players[mapArr[i, j] - 4], new Vector3(wallPos.x, wallPos.y, -2), Quaternion.identity).GetComponent<Character>();
                     mapArr[i, j] = 0;
                 }
                 if (groundSpriteArr[i, j] != 0)

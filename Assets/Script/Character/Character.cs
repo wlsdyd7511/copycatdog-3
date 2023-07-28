@@ -177,8 +177,8 @@ public class Character : MonoBehaviour, IWallBoom
 
     void OnTriggerEnter2D(Collider2D obj)
     {
-        
-        if (obj.tag == "Attack")
+
+        if (obj.tag == "Attack" && !isTrapped)
         {
             WaterBalloonBoom();
         }
