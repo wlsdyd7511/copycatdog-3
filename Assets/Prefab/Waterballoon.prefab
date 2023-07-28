@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8520148338549411699}
   - component: {fileID: 7334852572594817784}
   - component: {fileID: 4795869153197165219}
+  - component: {fileID: -5603993530512595670}
   m_Layer: 0
   m_Name: Waterballoon
   m_TagString: WaterBalloon
@@ -105,6 +106,7 @@ MonoBehaviour:
   waterBalloonBlock: {fileID: 4795869153197165219}
   waterBalloonCollider: {fileID: 0}
   Player: {fileID: 0}
+  waterBalloonRenderer: {fileID: 0}
   moving: 0
   targetPos: {x: 0, y: 0, z: 0}
   movingDir: {x: 0, y: 0, z: 0}
@@ -188,3 +190,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &-5603993530512595670
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993493297496108855}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ea013dc9ba7453541aa121613ebf8e67, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
