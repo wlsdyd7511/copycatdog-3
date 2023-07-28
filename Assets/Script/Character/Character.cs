@@ -196,7 +196,7 @@ public class Character : MonoBehaviour, IWallBoom
             else if (!isTrapped && countShieldItem > 0)
             {
                 Debug.Log("shield");
-                UseShieldItem();d
+                UseShieldItem();
             }
         }
     }

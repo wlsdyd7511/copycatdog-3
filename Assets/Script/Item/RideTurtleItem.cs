@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class RideTurtleItem : MonoBehaviour, IRideable
 {
-    private Character rider;  
+    private Character rider;
+    public SpriteRenderer turtleSpriteRenderer;
 
     public void Ride(Character player)
     {
@@ -22,20 +23,31 @@ public class RideTurtleItem : MonoBehaviour, IRideable
         transform.localPosition = offset;
 
     }
-
-    private void LateUpdate()
+    private void Update()
     {
-        // 거북이를 탄 경우, 캐릭터와 같은 방향으로 회전
-        if (rider != null)
+        if (rider == null)
         {
-            // 캐릭터의 방향을 읽어와서 거북이 방향을 업데이트
-            transform.rotation = Quaternion.Euler(0, 0, -(int)rider.playerDir * 90);
+            return;
         }
-    }
 
-    public void Dismount()
-    {
-        rider = null;
+        // 캐릭터의 방향을 확인하여 거북이 스프라이트 방향 설정
+        if (rider.playerDir == Character.Direction.Left)
+        {
+            turtleSpriteRenderer.flipX = false;
+        }
+        else if (rider.playerDir == Character.Direction.Right)
+        {
+            turtleSpriteRenderer.flipX = true;
+        }
+        // 앞, 뒤 방향에 따라 flipY를 설정해 거북이 이미지를 뒤집습니다.
+        else if (rider.playerDir == Character.Direction.Up)
+        {
+            turtleSpriteRenderer.flipY = false;
+        }
+        else if (rider.playerDir == Character.Direction.Down)
+        {
+            turtleSpriteRenderer.flipY = true;
+        }
     }
 
 }
