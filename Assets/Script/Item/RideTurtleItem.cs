@@ -16,7 +16,6 @@ public class RideTurtleItem : MonoBehaviour, IRideable
         turtleSpriteRenderer = GetComponent<SpriteRenderer>();      
     }
 
-
     public void Ride(Character player)
     {
         // 캐릭터를 탑승 처리하고, 캐릭터 속도를 조정

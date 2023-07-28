@@ -97,4 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6e8838ea0ffceb48b99bf86f35ad6e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rideOwlItem: {fileID: 0}
+  owlSprite:
+  - {fileID: 21300000, guid: 5f6d6f772f84f6d41850519cd9d848ff, type: 3}
+  - {fileID: 21300000, guid: 5fb7f9cd63f1fae4b888971cec78246e, type: 3}
+  - {fileID: 21300000, guid: 3384425605b059a469a711091174f06d, type: 3}
+  - {fileID: 21300000, guid: 2bc5f1a0fe995c141a5bb2b35b088111, type: 3}
