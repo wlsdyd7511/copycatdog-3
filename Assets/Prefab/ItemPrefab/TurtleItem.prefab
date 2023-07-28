@@ -97,3 +97,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 306e33beab15ed34f8c7e4b9fac98695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RideTurtleItem: {fileID: 2214763274458423873, guid: 0e61ab6277382394ea7d83a16cf210b9, type: 3}

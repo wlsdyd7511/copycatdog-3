@@ -298,16 +298,13 @@ public class Character : MonoBehaviour, IWallBoom
     }
 
     // 탑승 아이템을 획득하면 호출되는 함수
-    public void ApplyRideableItem(IRideable rideableItem)
+    public void ApplyRideableItem()
     {
-        if (currentRideable != null)
+        if (isRidingItem)
         {
-            Destroy(currentRideable.gameObject);
+            return;
         }
 
-        GameObject rideablePrefab = Instantiate(rideableItem.GetRideablePrefab(), transform.position, Quaternion.identity);
-        currentRideable = rideablePrefab.GetComponent<IRideable>();
-        currentRideable.Ride(this);
         isRidingItem = true;
         characterSpeed = ridingSpeed;
 

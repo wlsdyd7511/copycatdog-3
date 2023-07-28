@@ -5,22 +5,18 @@ using UnityEngine;
 
 public class RideTurtleItem : MonoBehaviour, IRideable
 {
-    private GameObject rideablePrefab;
+    [SerializeField]
+    private GameObject rideablePrefab; // 탑승 아이템 프리팹
 
-    public RideTurtleItem()
-    {
-        // 탑승 아이템 프리팹을 로드
-        rideablePrefab = Resources.Load<GameObject>("Assets/Prefab/ItemPrefab/RideTurtleItem");
-    }
 
     public void Ride(Character player)
     {
         // 캐릭터를 탑승 처리하고, 캐릭터 속도를 조정
-        player.ApplyRideableItem(this);
+        player.ApplyRideableItem();
     }
 
     public GameObject GetRideablePrefab()
     {
-        return gameObject; // 자기 자신의 프리팹 반환
+        return rideablePrefab.gameObject; // 자기 자신의 프리팹 반환
     }
 }
