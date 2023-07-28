@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class Character : MonoBehaviour, IWallBoom
 {
-    enum Direction { Left, Up, Right, Down }; // 0 = 왼쪽, 1 = 위, 2 = 오른쪽, 3 = 아래,
+    public enum Direction { Left, Up, Right, Down }; // 0 = 왼쪽, 1 = 위, 2 = 오른쪽, 3 = 아래,
     [SerializeField]
     private GameObject waterBalloonPrefab;
     [SerializeField]
@@ -25,14 +25,19 @@ public class Character : MonoBehaviour, IWallBoom
     public bool canPush = false;
     public bool canThrow = false;
     public bool haveWaterBalloon = false;
-    Direction playerDir = Direction.Left;
+    public Direction playerDir = Direction.Left;
     public float pushTime = 0;
+
+    public KeyCode[] playerKey; // 0 = 왼쪽, 1 = 위, 2 = 오른쪽, 3 = 아래, 4 = 물풍선설치, 5 = 아이템 사용
+
+    private Animator animator;
 
 
     void Start()
     {
         frontCheckerObject = frontChecker.gameObject;
         preMoveSpeed = moveSpeed;
+        animator = this.GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -49,7 +54,7 @@ public class Character : MonoBehaviour, IWallBoom
         }
         preMoveSpeed = moveSpeed;
 
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(playerKey[4]))
         {
             if (haveWaterBalloon)
             {
@@ -62,43 +67,47 @@ public class Character : MonoBehaviour, IWallBoom
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(playerKey[0]))
         {
             moveDirect = Vector3.left * moveSpeed;
             playerDir = Direction.Left;
+            editAnimator(true);
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        else if (Input.GetKeyDown(playerKey[2]))
         {
             moveDirect = Vector3.right * moveSpeed;
             playerDir = Direction.Right;
+            editAnimator(true);
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        else if (Input.GetKeyDown(playerKey[1]))
         {
             moveDirect = Vector3.up * moveSpeed;
             playerDir = Direction.Up;
+            editAnimator(true);
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (Input.GetKeyDown(playerKey[3]))
         {
             moveDirect = Vector3.down * moveSpeed;
             playerDir = Direction.Down;
+            editAnimator(true);
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftArrow) && moveDirect == Vector3.left * moveSpeed)
+        if (Input.GetKeyUp(playerKey[0]) && moveDirect == Vector3.left * moveSpeed)
         {
             moveDirect = Vector3.zero;
             KeyPushCheck();
         }
-        else if (Input.GetKeyUp(KeyCode.RightArrow) && moveDirect == Vector3.right * moveSpeed)
+        else if (Input.GetKeyUp(playerKey[2]) && moveDirect == Vector3.right * moveSpeed)
         {
             moveDirect = Vector3.zero;
             KeyPushCheck();
         }
-        else if (Input.GetKeyUp(KeyCode.UpArrow) && moveDirect == Vector3.up * moveSpeed)
+        else if (Input.GetKeyUp(playerKey[1]) && moveDirect == Vector3.up * moveSpeed)
         {
             moveDirect = Vector3.zero;
             KeyPushCheck();
         }
-        else if (Input.GetKeyUp(KeyCode.DownArrow) && moveDirect == Vector3.down * moveSpeed)
+        else if (Input.GetKeyUp(playerKey[3]) && moveDirect == Vector3.down * moveSpeed)
         {
             moveDirect = Vector3.zero;
             KeyPushCheck();
@@ -205,26 +214,32 @@ public class Character : MonoBehaviour, IWallBoom
 
     public void KeyPushCheck()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(playerKey[0]))
         {
             moveDirect = Vector3.left * moveSpeed;
             playerDir = Direction.Left;
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKey(playerKey[2]))
         {
             moveDirect = Vector3.right * moveSpeed;
             playerDir = Direction.Right;
         }
-        else if (Input.GetKey(KeyCode.UpArrow))
+        else if (Input.GetKey(playerKey[1]))
         {
             moveDirect = Vector3.up * moveSpeed;
             playerDir = Direction.Up;
         }
-        else if (Input.GetKey(KeyCode.DownArrow))
+        else if (Input.GetKey(playerKey[3]))
         {
             moveDirect = Vector3.down * moveSpeed;
             playerDir = Direction.Down;
         }
+        else
+        {
+            editAnimator(false);
+            return;
+        }
+        editAnimator(true);
     }
 
     public void PushWaterBalloon()
@@ -436,4 +451,9 @@ public class Character : MonoBehaviour, IWallBoom
         tempWaterBalloon.Player = this;
     }
 
+    private void editAnimator(bool move)
+    {
+        animator.SetInteger("Direction", (int)playerDir);
+        animator.SetBool("Moving",move);
+    }
 }
