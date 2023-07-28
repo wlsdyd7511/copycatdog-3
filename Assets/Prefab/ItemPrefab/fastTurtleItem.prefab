@@ -97,4 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56003104390b6f9409df072fafbdf19a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turtleSpriteRenderer: {fileID: 0}
+  turtleSprite:
+  - {fileID: 1718627317, guid: 1f1b160ad83c7f94586949f0540c3170, type: 3}
+  - {fileID: 1302770909, guid: 6521c10d54afb1e45a6f9b0f9be4cd7f, type: 3}
+  - {fileID: 126510714, guid: e02252f4402dc454fb1cc1c5259ba54a, type: 3}
+  - {fileID: 515111564, guid: 8e32e17ac4675d94c96eb7fb2f15e2e5, type: 3}
