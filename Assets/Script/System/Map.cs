@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class Map : MonoBehaviour
@@ -34,14 +35,16 @@ public class Map : MonoBehaviour
 
     void Start()
     {
-        DirectoryInfo di = new DirectoryInfo(Application.dataPath + "/Map");
+        //DirectoryInfo di = new DirectoryInfo(Application.dataPath + "/Map");
 
-        foreach (FileInfo file in di.GetFiles("*.txt"))
-        {
+        //foreach (FileInfo file in di.GetFiles("*.txt"))
+        //{
 
-            Debug.Log("파일명 : " + file.FullName);
-            mapList.Add(file.FullName);
-        }
+        //    Debug.Log("파일명 : " + file.FullName);
+        //    mapList.Add(file.FullName);
+        //}
+        mapList.Add("Map/map1");
+        mapList.Add("Map/map2");
     }
 
     public void CreateMap(int num)
@@ -80,7 +83,11 @@ public class Map : MonoBehaviour
 
     void ReadMapFile(int num)
     {
-        string[] contents = System.IO.File.ReadAllLines(mapList[num]);
+        TextAsset mapText = Resources.Load<TextAsset>(mapList[num]);
+        Debug.Log(mapText.text);
+        string[] tempContents = mapText.text.Split("\r\n");
+        string[] contents = tempContents.SkipLast(1).ToArray();
+        //string[] contents = System.IO.File.ReadAllLines(mapList[num]);
         string[] txtArr = contents[0].Split(',');
 
         Debug.Log(txtArr.Length);
